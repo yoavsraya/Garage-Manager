@@ -25,7 +25,7 @@ namespace Ex03.ConsoleUI
 
             factory.createNewVehicle(plateNumber, vehicleModel, vehicleType, m_myGarage);
             Console.WriteLine(string.Format($"Your vehicle has been sign to our garage... we need a few more details about your {vehicleType}"));
-
+            
         }
 
         private void printVehicleOptions() 
@@ -40,5 +40,7 @@ namespace Ex03.ConsoleUI
                 Console.WriteLine(vehicle);
             }
         }
+
+        private
     }
 }
