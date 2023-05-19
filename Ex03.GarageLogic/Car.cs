@@ -27,8 +27,8 @@ namespace Ex03.GarageLogic
         public Car(in string i_LicensePlate, in string i_ModelName)
             : base(i_LicensePlate, i_ModelName)
         {
-            m_NumOfWheels = 4;
-            m_MaxTirePressure = 33;
+            m_Wheels.NumOfWheels = 4;
+            m_Wheels.MaxAirPressure = 33;
         }
 
         public override List<string> RequirementsList()
@@ -65,10 +65,17 @@ namespace Ex03.GarageLogic
                 throw e;
             }
 
-            UpdateWheelsInfo(i_ListOfAnswers[3], float.Parse(i_ListOfAnswers[3]), m_MaxTirePressure);
+            UpdateWheelsInfo(i_ListOfAnswers[3], float.Parse(i_ListOfAnswers[3]), m_Wheels.MaxAirPressure);
         }
 
+        public override List<string> VehicleDetails()
+        {
+            List<string> details = base.VehicleDetails();
+            details.Add(string.Format("number of doors: {0}", m_numOfDoors));
+            details.Add(string.Format("The car color: {0}", m_CarColor));
 
+            return details;
+        }
 
 
     }

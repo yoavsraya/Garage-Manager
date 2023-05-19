@@ -8,10 +8,8 @@ namespace Ex03.GarageLogic
         private readonly string r_LicensePlate;
         private readonly string r_ModelName;
         private float m_EnergyMeterPercent;
-        protected MotorType m_MotorType = null;
-        protected byte m_NumOfWheels;
-        protected byte m_MaxTirePressure;
-        protected List<Wheel> m_Wheels;
+        protected MotorType m_MotorType = null;      
+        protected Wheels m_Wheels;
         protected const bool k_Valid = true;
 
         public vehicle(in string i_LicensePlate, in string i_ModelName)
@@ -28,18 +26,9 @@ namespace Ex03.GarageLogic
             }
         }
 
-        protected void UpdateWheelsInfo(in string i_Manufacturer, in float i_CurrentAirPressure, in byte i_MaxTirePressure)
+        protected void UpdateWheelsInfo(in string i_Manufacturer, in float i_CurrentAirPressure, in float i_MaxTirePressure)
         {
-            m_MaxTirePressure = i_MaxTirePressure;
-            if (i_CurrentAirPressure > i_MaxTirePressure)
-            {
-                throw new ArgumentException("Tier pressure can't be more then the maximum");
-            }
-
-            for (byte i = 0; i < m_NumOfWheels; i++)
-            {
-                m_Wheels.Add(new Wheel(i_Manufacturer, i_CurrentAirPressure, m_MaxTirePressure));
-            }
+            m_Wheels = new Wheels(i_Manufacturer, i_CurrentAirPressure, i_MaxTirePressure); 
         }
 
         protected void UpdateMotorInfo(MotorType.eEnergyType i_EnergyType)
@@ -71,19 +60,17 @@ namespace Ex03.GarageLogic
 
         public void FillWheelsAirToMax()
         {
-            FillWheelsAir(m_MaxTirePressure);
+            FillWheelsAir(m_Wheels.MaxAirPressure);
         }
 
         public void FillWheelsAir(in float i_pressure)
         {
-            if (m_Wheels.Count == 0)
+            if (m_Wheels.NumOfWheels == 0)
             {
                 throw new ArgumentNullException();
             }
-            foreach (Wheel wheel in m_Wheels)
-            {
-                wheel.FillAirWheel(i_pressure);
-            }
+
+            m_Wheels.FillAirWheel(i_pressure);
         }
 
         public abstract List<string> RequirementsList();
@@ -105,7 +92,27 @@ namespace Ex03.GarageLogic
                 throw new ArgumentException();
             }
         }
-        
 
+        public virtual List<string> VehicleDetails()
+        {
+            List<string> details = new List<string>();
+
+            details.Add(string.Format("License plate: {0}", r_LicensePlate));
+            details.Add(string.Format("Model name: {0}", r_ModelName));
+            details.Add(string.Format("Engine type: {0}", m_MotorType.ToString()));
+            if (m_MotorType is GasMotor)
+            {
+                details.Add(string.Format("Fuel type: {0}", m_MotorType.EnergyType));
+                details.Add(string.Format("Fuel left: {0:p2}", m_EnergyMeterPercent));
+            }
+            else
+            {
+                details.Add(string.Format("Energy left: {0:p2}", m_EnergyMeterPercent));
+            }
+            details.Add(string.Format("Tier manufacturer: {0}", m_Wheels.Manufacturer));
+            details.Add(string.Format("Tier current pressure: {0}", m_Wheels.CurrentAirPressure));
+
+            return details;
+        }
     }
 }
