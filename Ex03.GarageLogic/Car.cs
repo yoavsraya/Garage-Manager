@@ -29,6 +29,7 @@ namespace Ex03.GarageLogic
         {
             m_Wheels.NumOfWheels = 4;
             m_Wheels.MaxAirPressure = 33;
+            m_NumOfRequirements = 5;
         }
 
         public override List<string> RequirementsList()

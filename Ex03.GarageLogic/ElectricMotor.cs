@@ -15,7 +15,7 @@ namespace Ex03.GarageLogic
             }
             else if (i_energy + m_BatteryHoursLeft > m_BatteryMaxHours)
             {
-                throw new ArgumentException();
+                throw new ArgumentException("the energy to add is more then the energy allow");
             }
 
             m_BatteryHoursLeft += i_energy;
@@ -33,8 +33,12 @@ namespace Ex03.GarageLogic
             }
         }
 
-        public ElectricMotor(eEnergyType i_EnergyType) : base(i_EnergyType)
-        {}
+        public ElectricMotor(eEnergyType i_EnergyType) : base(i_EnergyType){}
+
+        public override string ToString()
+        {
+            return "Electric Engine";
+        }
     }
             
 }

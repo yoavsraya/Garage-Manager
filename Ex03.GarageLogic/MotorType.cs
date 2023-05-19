@@ -2,7 +2,7 @@
 
 namespace Ex03.GarageLogic
 {
-    internal abstract class MotorType
+    public abstract class MotorType
     {
         public enum eEnergyType
         {
