@@ -9,6 +9,7 @@ namespace Ex03.GarageLogic
         private readonly string r_ModelName;
         protected MotorType m_MotorType;
         private float m_EnergyMeterPercent;
+        protected byte m_numOfWheels;
         protected List<Wheel> m_Wheels;
 
         public vehicle(in string i_LicensePlate, in string i_ModelName)
@@ -30,7 +31,7 @@ namespace Ex03.GarageLogic
         public void ReFillVehicle(in float i_NewCurrentEnergy, in MotorType.eEnergyType i_EnergyType)
         {
             m_MotorType.ReFill(i_NewCurrentEnergy, i_EnergyType);
-            m_EnergyMeterPercent = m_MotorType.GetMaxEnergy() / i_NewCurrentEnergy;
+            m_EnergyMeterPercent = m_MotorType.maxEnergy / i_NewCurrentEnergy;
         }
 
         public string LicensePlate
@@ -38,6 +39,14 @@ namespace Ex03.GarageLogic
             get
             {
                 return r_LicensePlate;
+            }
+        }
+
+        public void FillWheelsAirToMax()
+        {
+            foreach( Wheel wheel in m_Wheels)
+            {
+                wheel.FillAirWheel(wheel.MaxAirPressure);
             }
         }
 

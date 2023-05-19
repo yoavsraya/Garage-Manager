@@ -20,6 +20,7 @@ namespace Ex03.GarageLogic
         {
             r_LicenseType = i_LicenseType;
             r_MotorVolume = i_MotorVolume;
+            m_numOfWheels = 2;
 
             if (m_MotorType is GasMotor)
             {
