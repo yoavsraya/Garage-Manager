@@ -1,4 +1,5 @@
-﻿
+﻿using System.Collections.Generic;
+using System;
 
 namespace Ex03.GarageLogic
 {
@@ -10,10 +11,10 @@ namespace Ex03.GarageLogic
             Fixed,
             Paid,
         }
-        vehicle m_vehicle;
-        string m_OwnerName;
-        string m_OwnerPhoneNumber;
-        eClientStatus m_clientStatus = eClientStatus.InProgress;
+        private vehicle m_vehicle;
+        private string m_OwnerName;
+        private string m_OwnerPhoneNumber;
+        private eClientStatus m_clientStatus = eClientStatus.InProgress;
 
         public eClientStatus clientStatus 
         {
@@ -27,7 +28,27 @@ namespace Ex03.GarageLogic
             }
         }
 
-        public string getViheclePlateNumber() 
+        private string fromEnumToString(eClientStatus i_clientStatus)
+        {
+            string statusInString = default;
+
+            switch(i_clientStatus)
+            {
+                case eClientStatus.Fixed:
+                    statusInString = "Fixed";
+                    break;
+                case eClientStatus.InProgress:
+                    statusInString = "In Progress";
+                    break;
+                case eClientStatus.Paid:
+                    statusInString = "Paid";
+                    break;
+            }
+
+            return statusInString;
+        }
+
+        public string getVehiclePlateNumber() 
         {
             return m_vehicle.LicensePlate;
         }
@@ -35,6 +56,21 @@ namespace Ex03.GarageLogic
         public void FillWheelsAirToMax() 
         {
             m_vehicle.FillWheelsAirToMax();
+        }
+
+        public void FillEnergyInVehicle(in float i_energyToAdd, in MotorType.eEnergyType i_energyType) 
+        {
+            m_vehicle.ReFillVehicle(i_energyToAdd, i_energyType);
+        }
+
+        public List<string> getInfo() 
+        {
+            List<string> vehicleInfo = m_vehicle.getDetails();
+            vehicleInfo.Add("Owner Name: " + m_OwnerName);
+            vehicleInfo.Add("Owner Phone Number: " + m_OwnerPhoneNumber);
+            vehicleInfo.Add("Client Status: " + fromEnumToString(m_clientStatus));
+
+            return vehicleInfo;
         }
     }
 }
