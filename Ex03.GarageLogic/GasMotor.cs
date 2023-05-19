@@ -37,6 +37,9 @@ namespace Ex03.GarageLogic
         public GasMotor(eEnergyType i_EnergyType) : base(i_EnergyType)
         {}
 
-
+        public override string ToString()
+        {
+            return "Fuel Engine";
+        }
     }
 }

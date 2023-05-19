@@ -3,14 +3,16 @@ using System.Collections.Generic;
 
 namespace Ex03.GarageLogic
 {
-    abstract class vehicle
+    public abstract class vehicle
     {
+        protected const bool k_Valid = true;
         private readonly string r_LicensePlate;
         private readonly string r_ModelName;
         private float m_EnergyMeterPercent;
+        protected byte m_NumOfRequirements = 0;
+
         protected MotorType m_MotorType = null;      
-        protected Wheels m_Wheels;
-        protected const bool k_Valid = true;
+        protected Wheels m_Wheels = null;
 
         public vehicle(in string i_LicensePlate, in string i_ModelName)
         {
@@ -31,25 +33,11 @@ namespace Ex03.GarageLogic
             m_Wheels = new Wheels(i_Manufacturer, i_CurrentAirPressure, i_MaxTirePressure); 
         }
 
-        protected void UpdateMotorInfo(MotorType.eEnergyType i_EnergyType)
-        {
-            if (i_EnergyType == MotorType.eEnergyType.Electric)
-            {
-                m_MotorType = new ElectricMotor(i_EnergyType);
-            }
-            else
-            {
-                m_MotorType = new GasMotor(i_EnergyType);
-            }
-
-            
-        }
-
         public void ReFillVehicle(in float i_NewCurrentEnergy, in MotorType.eEnergyType i_EnergyType)
         {
             if(m_MotorType == null)
             {
-                throw new ArgumentNullException();
+                throw new ArgumentNullException("engine details has not created yet!");
             }
             else
             {
@@ -65,9 +53,9 @@ namespace Ex03.GarageLogic
 
         public void FillWheelsAir(in float i_pressure)
         {
-            if (m_Wheels.NumOfWheels == 0)
+            if (m_Wheels == null)
             {
-                throw new ArgumentNullException();
+                throw new ArgumentNullException("wheels details has not created yet!");
             }
 
             m_Wheels.FillAirWheel(i_pressure);
@@ -100,6 +88,7 @@ namespace Ex03.GarageLogic
             details.Add(string.Format("License plate: {0}", r_LicensePlate));
             details.Add(string.Format("Model name: {0}", r_ModelName));
             details.Add(string.Format("Engine type: {0}", m_MotorType.ToString()));
+
             if (m_MotorType is GasMotor)
             {
                 details.Add(string.Format("Fuel type: {0}", m_MotorType.EnergyType));
@@ -109,6 +98,7 @@ namespace Ex03.GarageLogic
             {
                 details.Add(string.Format("Energy left: {0:p2}", m_EnergyMeterPercent));
             }
+
             details.Add(string.Format("Tier manufacturer: {0}", m_Wheels.Manufacturer));
             details.Add(string.Format("Tier current pressure: {0}", m_Wheels.CurrentAirPressure));
 

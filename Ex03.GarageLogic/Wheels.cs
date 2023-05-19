@@ -2,7 +2,7 @@
 
 namespace Ex03.GarageLogic
 {
-    internal class Wheels
+    public class Wheels
     {
         private string m_Manufacturer;
         private float m_CurrentAirPressure = 0;
