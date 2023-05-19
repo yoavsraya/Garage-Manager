@@ -5,6 +5,14 @@ namespace Ex03.GarageLogic
 {
     class Track : vehicle
     {
+        private enum eRequirements
+        {
+            TrunkToxic = 0,
+            TrunkValume,
+            TierManufacturer,
+            CurrentTierPressure,
+        }
+
         private const bool k_HasToxicTrunk = true;
         private bool m_ToxicTrunk = !k_HasToxicTrunk;
         private float m_TrunkVolume;
@@ -19,7 +27,7 @@ namespace Ex03.GarageLogic
         {
             List<string> RequirementsList = new List<string>(4);
 
-            RequirementsList.Add("yes if you hold toxic cargo"); 
+            RequirementsList.Add("hold toxic cargo (yes, no)"); 
             RequirementsList.Add("trunk volume"); 
             RequirementsList.Add("tier manufacturer");
             RequirementsList.Add("current tier pressure"); 
@@ -31,11 +39,11 @@ namespace Ex03.GarageLogic
         {
             m_MotorType = new GasMotor(MotorType.eEnergyType.Soler);
 
-            if (i_ListOfAnswers[0] == "yes")
+            if (i_ListOfAnswers[((int)eRequirements.TrunkToxic)] == "yes")
             {
                 m_ToxicTrunk = k_HasToxicTrunk;
             }
-            else if(i_ListOfAnswers[0] == "no")
+            else if(i_ListOfAnswers[((int)eRequirements.TrunkToxic)] == "no")
             {
                 m_ToxicTrunk = !k_HasToxicTrunk;
             }
@@ -44,12 +52,12 @@ namespace Ex03.GarageLogic
                 throw new AggregateException("one of the inputs is not valid");
             }
 
-            if (float.TryParse(i_ListOfAnswers[1], out m_TrunkVolume) != k_Valid)
+            if (float.TryParse(i_ListOfAnswers[((int)eRequirements.TrunkValume)], out m_TrunkVolume) != k_Valid)
             {
                 throw new AggregateException("one of the inputs is not valid");
             }
 
-            UpdateWheelsInfo(i_ListOfAnswers[2], float.Parse(i_ListOfAnswers[3]), 26);
+            UpdateWheelsInfo(i_ListOfAnswers[((int)eRequirements.TierManufacturer)], float.Parse(i_ListOfAnswers[((int)eRequirements.CurrentTierPressure)]), 26);
             m_Wheels.NumOfWheels = 14;
             m_Wheels.MaxAirPressure = 26;
         }
