@@ -3,20 +3,36 @@ using System;
 
 namespace Ex03.GarageLogic
 {
-    class GarageManeger
+    public class GarageManeger
     {
         private Dictionary<ClientInfo.eClientStatus, ClientInfo> m_clients;
+        const bool k_Found = true;
+
+        public bool isVehicleExist(in string i_plateNumber) 
+        {
+            bool found = !k_Found;
+
+            foreach(KeyValuePair<ClientInfo.eClientStatus, ClientInfo> vehicle in m_clients) 
+            {
+                if(vehicle.Value.getVehiclePlateNumber() == i_plateNumber) 
+                {
+                    found = k_Found;
+                }
+            }
+
+            return found;
+        }
 
         private ClientInfo FindClientByPlateNumber(in string i_plateNumber, out bool io_found)
         {
             ClientInfo client = null;
-            io_found = false;
+            io_found = !k_Found;
 
             foreach (KeyValuePair<ClientInfo.eClientStatus, ClientInfo> vehicle in m_clients)
             {
                 if (i_plateNumber.Equals(vehicle.Value.getVehiclePlateNumber()))
                 {
-                    io_found = true;
+                    io_found = k_Found;
                     client = vehicle.Value;
                     break;
                 }
@@ -105,5 +121,26 @@ namespace Ex03.GarageLogic
 
             return vehicleInfo;
         }
+
+        public List<string> getVehicleRequirement(vehicle vehicle) 
+        {
+            return vehicle.RequirementsList();
+        }
+
+        public List<string> getClientRequirement() 
+        {
+            List<string> requirementList = default;
+            requirementList.Add("Owner Name");
+            requirementList.Add("Owner Phone Number");
+            return requirementList;
+        }
+
+        public void detailsToAddClient(vehicle vehicle, List<string> i_vehicleDetailsList, List<string> i_clientDetailsList) 
+        {
+            vehicle.BuildVehicle(i_vehicleDetailsList);
+            ClientInfo newClient = new ClientInfo(i_clientDetailsList[0], i_clientDetailsList[1], vehicle);
+            m_clients.Add(newClient.clientStatus, newClient);
+        }
+        
     }
 }
