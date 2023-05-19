@@ -88,7 +88,7 @@ namespace Ex03.GarageLogic
 
         public List<string> getInfo() 
         {
-            List<string> vehicleInfo = m_vehicle.vehicleDetails();
+            List<string> vehicleInfo = m_vehicle.VehicleDetails();
             vehicleInfo.Add("Owner Name: " + m_OwnerName);
             vehicleInfo.Add("Owner Phone Number: " + m_OwnerPhoneNumber);
             vehicleInfo.Add("Client Status: " + fromEnumToString(m_clientStatus));

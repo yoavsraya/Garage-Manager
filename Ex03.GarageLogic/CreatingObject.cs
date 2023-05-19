@@ -12,7 +12,7 @@ namespace Ex03.GarageLogic
         {
             if(i_garage.isVehicleExist(i_plateNumber) == true) 
             {
-                i_garage.UpdateClientStatus(i_plateNumber, "in progress");
+                i_garage.UpdateClientStatus(i_plateNumber, "in rogress");
             }
             else 
             {
