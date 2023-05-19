@@ -12,8 +12,8 @@ namespace Ex03.GarageLogic
         public Track(in string i_LicensePlate, in string i_ModelName)
             : base(i_LicensePlate, i_ModelName)
         {
-            m_NumOfWheels = 14;
-            m_MaxTirePressure = 26;
+            m_Wheels.NumOfWheels = 14;
+            m_Wheels.MaxAirPressure = 26;
         }
 
         public override List<string> RequirementsList()
@@ -30,6 +30,8 @@ namespace Ex03.GarageLogic
 
         public override void BuildVehicle(in List<string> i_ListOfAnswers)
         {
+            m_MotorType = new GasMotor(MotorType.eEnergyType.Soler);
+
             if (i_ListOfAnswers[0] == "yes")
             {
                 m_ToxicTrunk = k_HasToxicTrunk;
@@ -48,7 +50,24 @@ namespace Ex03.GarageLogic
                 throw new AggregateException("one of the inputs is not valid");
             }
 
-            UpdateWheelsInfo(i_ListOfAnswers[2], float.Parse(i_ListOfAnswers[3]), m_MaxTirePressure);
+            UpdateWheelsInfo(i_ListOfAnswers[2], float.Parse(i_ListOfAnswers[3]), m_Wheels.MaxAirPressure);
+        }
+
+        public override List<string> VehicleDetails()
+        {
+            List<string> details = base.VehicleDetails();
+            details.Add(string.Format("Trunk volume: {0}", m_TrunkVolume));
+
+            if (m_ToxicTrunk)
+            {
+                details.Add(string.Format("cargo containing toxic"));
+            }
+            else
+            {
+                details.Add(string.Format("cargo is clean from toxic"));
+            }
+  
+            return details;
         }
     }
 }
