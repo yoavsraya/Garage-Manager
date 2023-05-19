@@ -25,43 +25,38 @@ namespace Ex03.GarageLogic
 
         public override List<string> RequirementsList()
         {
-            List<string> RequirementsList = new List<string>(2);
+            List<string> RequirementsList = new List<string>(4);
 
             RequirementsList.Add("License type");
             RequirementsList.Add("Engine volume");
             RequirementsList.Add("Engine type");
+            RequirementsList.Add("current tier pressure");
 
             return RequirementsList;
         }
 
         public override void BuildVehicle(in List<string> i_ListOfAnswers)
         {
-            const bool V_Valid = true;
-
-            if (Enum.TryParse(i_ListOfAnswers[0], out m_LicenseType) == !V_Valid)
+            if (Enum.TryParse(i_ListOfAnswers[0], out m_LicenseType) == !k_Valid)
             {
                 throw new Exception();
             }
 
-            if (int.TryParse(i_ListOfAnswers[1], out m_MotorVolume) == !V_Valid)
+            if (int.TryParse(i_ListOfAnswers[1], out m_MotorVolume) == !k_Valid)
             {
                 throw new Exception();
             }
 
-            if (i_ListOfAnswers[2].ToLower() == "electric")
+            try
             {
-                m_MotorType = new ElectricMotor(MotorType.eEnergyType.Electric);
+                CreateEngine(i_ListOfAnswers[2]);
             }
-            else if (i_ListOfAnswers[2].ToLower() == "fuel")
+            catch(Exception e)
             {
-                m_MotorType = new GasMotor(MotorType.eEnergyType.Octan98);
-            }
-            else
-            {
-                throw new ArgumentException();
+                throw e;
             }
 
-
+            UpdateWheelsInfo(i_ListOfAnswers[3], float.Parse(i_ListOfAnswers[3]), m_MaxTirePressure);
         }
     }
 }

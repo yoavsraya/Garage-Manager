@@ -21,25 +21,51 @@ namespace Ex03.GarageLogic
             Red,
         }
 
-        private readonly eNumOfDoors r_numOfDoors;
-        private readonly eCarColor r_CarColor;
+        private  eNumOfDoors m_numOfDoors;
+        private  eCarColor m_CarColor;
 
-        public Car(in string i_LicensePlate, in string i_ModelName, in eNumOfDoors i_NumOfDoors, in eCarColor i_Color)
+        public Car(in string i_LicensePlate, in string i_ModelName)
             : base(i_LicensePlate, i_ModelName)
         {
-            r_CarColor = i_Color;
-            r_numOfDoors = i_NumOfDoors;
+            m_NumOfWheels = 4;
+            m_MaxTirePressure = 33;
         }
 
         public override List<string> RequirementsList()
         {
-            List<string> RequirementsList = new List<string>();
+            List<string> RequirementsList = new List<string>(5);
+
+            RequirementsList.Add("number of doors");
+            RequirementsList.Add("car color");
+            RequirementsList.Add("Engine type");
+            RequirementsList.Add("tier manufacturer");
+            RequirementsList.Add("current tier pressure");
+
             return RequirementsList;
         }
 
         public override void BuildVehicle(in List<string> i_ListOfAnswers)
         {
-            
+            if (Enum.TryParse(i_ListOfAnswers[0], out m_numOfDoors) != k_Valid)
+            {
+                throw new Exception();
+            }
+
+            if(Enum.TryParse(i_ListOfAnswers[1], out m_numOfDoors) != k_Valid)
+            {
+                throw new Exception();
+            }
+
+            try
+            {
+                CreateEngine(i_ListOfAnswers[2]);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+
+            UpdateWheelsInfo(i_ListOfAnswers[3], float.Parse(i_ListOfAnswers[3]), m_MaxTirePressure);
         }
 
 

@@ -5,7 +5,7 @@ namespace Ex03.GarageLogic
     internal class Wheel
     {
         private string m_Manufacturer;
-        private float m_CurrentAirPressure;
+        private float m_CurrentAirPressure = 0;
         private float m_MaxAirPressure;
 
 
