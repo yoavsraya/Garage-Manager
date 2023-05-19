@@ -37,6 +37,7 @@
   <ItemGroup>
     <Compile Include="Car.cs" />
     <Compile Include="ClientInfo.cs" />
+    <Compile Include="CreatingObject.cs" />
     <Compile Include="ElectricMotor.cs" />
     <Compile Include="energyTypeException.cs" />
     <Compile Include="GarageManeger.cs" />

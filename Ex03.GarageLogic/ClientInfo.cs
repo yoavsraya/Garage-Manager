@@ -16,6 +16,29 @@ namespace Ex03.GarageLogic
         private string m_OwnerPhoneNumber;
         private eClientStatus m_clientStatus = eClientStatus.InProgress;
 
+        public ClientInfo(string i_ownerName, string i_ownerPhoneNumber, vehicle vehicle)
+        {
+            m_OwnerName = i_ownerName;
+            m_OwnerPhoneNumber = i_ownerPhoneNumber;
+            m_vehicle = vehicle;
+            m_clientStatus = eClientStatus.InProgress;
+        }
+
+        public string OwnerName 
+        {
+            set
+            {
+                m_OwnerName = value;
+            }
+        }
+        public string OwnerPhoneNumber 
+        {
+            set
+            {
+                m_OwnerPhoneNumber = value;
+            }
+        }
+
         public eClientStatus clientStatus 
         {
             get 
