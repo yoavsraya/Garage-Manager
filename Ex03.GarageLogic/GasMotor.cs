@@ -34,5 +34,9 @@ namespace Ex03.GarageLogic
             }
         }
 
+        public GasMotor(eEnergyType i_EnergyType) : base(i_EnergyType)
+        {}
+
+
     }
 }

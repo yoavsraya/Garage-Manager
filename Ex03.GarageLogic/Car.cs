@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Ex03.GarageLogic
 {
-    class Car
+    class Car : vehicle
     {
-        enum eNumOfDoors
+        public enum eNumOfDoors
         {
             Two =2,
             Three,
@@ -12,7 +13,7 @@ namespace Ex03.GarageLogic
             Five,
         }
 
-        enum eCarColor
+        public enum eCarColor
         {
             Black,
             White,
@@ -20,8 +21,25 @@ namespace Ex03.GarageLogic
             Red,
         }
 
-        eNumOfDoors m_numOfDoors;
-        eCarColor m_CarColor;
+        private readonly eNumOfDoors r_numOfDoors;
+        private readonly eCarColor r_CarColor;
+
+        public Car(in string i_LicensePlate, in string i_ModelName, in eNumOfDoors i_NumOfDoors, in eCarColor i_Color)
+            : base(i_LicensePlate, i_ModelName)
+        {
+            r_CarColor = i_Color;
+            r_numOfDoors = i_NumOfDoors;
+        }
+
+        public override List<string> RequirementsList()
+        {
+           
+        }
+
+        public override void BuildVehicle(in List<string> i_ListOfAnswers)
+        {
+            
+        }
 
 
 

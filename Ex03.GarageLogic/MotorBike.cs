@@ -1,4 +1,5 @@
-﻿using System;
+﻿using System.Collections.Generic;
+using System;
 
 namespace Ex03.GarageLogic
 {
@@ -12,32 +13,55 @@ namespace Ex03.GarageLogic
             B1,
         }
 
-        private readonly int r_MotorVolume;
-        private readonly eLicenseType r_LicenseType;
+        private int m_MotorVolume;
+        private eLicenseType m_LicenseType;
 
-        public MotorBike(in string i_LicensePlate, in string i_ModelName, in eLicenseType i_LicenseType, in int i_MotorVolume)
+        public MotorBike(in string i_LicensePlate, in string i_ModelName)
             : base(i_LicensePlate, i_ModelName)
         {
-            r_LicenseType = i_LicenseType;
-            r_MotorVolume = i_MotorVolume;
-            m_numOfWheels = 2;
+            m_NumOfWheels = 2;
+            m_MaxTirePressure = 31;
+        }
 
-            if (m_MotorType is GasMotor)
+        public override List<string> RequirementsList()
+        {
+            List<string> RequirementsList = new List<string>(2);
+
+            RequirementsList.Add("License type");
+            RequirementsList.Add("Engine volume");
+            RequirementsList.Add("Engine type");
+
+            return RequirementsList;
+        }
+
+        public override void BuildVehicle(in List<string> i_ListOfAnswers)
+        {
+            const bool V_Valid = true;
+
+            if (Enum.TryParse(i_ListOfAnswers[0], out m_LicenseType) == !V_Valid)
             {
-                m_MotorType.EnergyType = MotorType.eEnergyType.Octan98;
-                m_MotorType.maxEnergy = 6.4F;
+                throw new Exception();
+            }
+
+            if (int.TryParse(i_ListOfAnswers[1], out m_MotorVolume) == !V_Valid)
+            {
+                throw new Exception();
+            }
+
+            if (i_ListOfAnswers[2].ToLower() == "electric")
+            {
+                m_MotorType = new ElectricMotor(MotorType.eEnergyType.Electric);
+            }
+            else if (i_ListOfAnswers[2].ToLower() == "fuel")
+            {
+                m_MotorType = new GasMotor(MotorType.eEnergyType.Octan98);
             }
             else
             {
-                m_MotorType.EnergyType = MotorType.eEnergyType.Electric;
-                m_MotorType.maxEnergy = 2.6F;
+                throw new ArgumentException();
             }
-        }
 
-        public override void gatherWheelsInfoByObject(in string i_Manufacturer, in float i_CurrentAirPressure)
-        {
-            UpdateWheelsInfo(2, i_Manufacturer, i_CurrentAirPressure, 31);
+
         }
-      
     }
 }

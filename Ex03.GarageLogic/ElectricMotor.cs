@@ -32,6 +32,9 @@ namespace Ex03.GarageLogic
                 m_BatteryMaxHours = value;
             }
         }
+
+        public ElectricMotor(eEnergyType i_EnergyType) : base(i_EnergyType)
+        {}
     }
             
 }
