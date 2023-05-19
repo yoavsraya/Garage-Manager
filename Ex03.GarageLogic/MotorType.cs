@@ -2,7 +2,7 @@
 
 namespace Ex03.GarageLogic
 {
-    abstract class MotorType
+    internal abstract class MotorType
     {
         public enum eEnergyType
         {
@@ -13,24 +13,34 @@ namespace Ex03.GarageLogic
             Electric,
         }
 
-        private eEnergyType m_GasType;
+        private eEnergyType m_EnergyType;
 
-        public eEnergyType GasType
+        public eEnergyType EnergyType
         {
             get
             {
-                return m_GasType;
+                return m_EnergyType;
             }
             set
             {
-                m_GasType = value;
+                if(Enum.IsDefined(typeof(eEnergyType), value))
+                {
+                    m_EnergyType = value;
+                }
+                else
+                {
+                    throw new AggregateException();
+                }
             }
         }
 
-        public abstract void FillEnergy(in float i_energy, in eEnergyType i_energyType);
-   
+        public abstract void ReFill(in float i_energy, in eEnergyType i_energyType);
 
-
+        public abstract float maxEnergy
+        {
+            get;
+            set;
+        }
 
     }
 }

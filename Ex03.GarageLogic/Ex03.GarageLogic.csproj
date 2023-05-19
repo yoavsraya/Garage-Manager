@@ -38,9 +38,10 @@
     <Compile Include="Car.cs" />
     <Compile Include="ClientInfo.cs" />
     <Compile Include="ElectricMotor.cs" />
+    <Compile Include="energyTypeException.cs" />
     <Compile Include="GarageManeger.cs" />
     <Compile Include="GasMotor.cs" />
-    <Compile Include="MotorCycle.cs" />
+    <Compile Include="MotorBike.cs" />
     <Compile Include="MotorType.cs" />
     <Compile Include="Track.cs" />
     <Compile Include="vehicle.cs" />

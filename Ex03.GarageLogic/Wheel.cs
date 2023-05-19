@@ -2,14 +2,14 @@
 
 namespace Ex03.GarageLogic
 {
-    class Wheel
+    internal class Wheel
     {
         private string m_Manufacturer;
-        float m_CurrentAirPressure;
-        float m_MaxAirPressure;
+        private float m_CurrentAirPressure;
+        private float m_MaxAirPressure;
 
 
-        public void FillAirWheel(in float i_airPressure)
+        internal void FillAirWheel(in float i_airPressure)
         {
             if (i_airPressure + m_CurrentAirPressure > m_MaxAirPressure)
             {
@@ -17,6 +17,13 @@ namespace Ex03.GarageLogic
             }
 
             m_CurrentAirPressure += i_airPressure;
+        }
+
+        internal Wheel(in string i_Manufacturer, in float i_CurrentAirPressure, in float i_MaxAirPressure)
+        {
+            m_Manufacturer = i_Manufacturer;
+            m_CurrentAirPressure = i_CurrentAirPressure;
+            m_MaxAirPressure = i_MaxAirPressure;
         }
     }
 }
