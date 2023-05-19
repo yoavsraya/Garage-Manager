@@ -33,7 +33,8 @@ namespace Ex03.GarageLogic
 
         public override List<string> RequirementsList()
         {
-           
+            List<string> RequirementsList = new List<string>();
+            return RequirementsList;
         }
 
         public override void BuildVehicle(in List<string> i_ListOfAnswers)
