@@ -22,15 +22,12 @@ namespace Ex03.GarageLogic
             CurrentTierPressure,
         }
 
-
         private int m_MotorVolume;
         private eLicenseType m_LicenseType;
 
         public MotorBike(in string i_LicensePlate, in string i_ModelName)
             : base(i_LicensePlate, i_ModelName)
         {
-            m_Wheels.NumOfWheels = 2;
-            m_Wheels.MaxAirPressure = 31;
             m_NumOfRequirements = 5;
         }
 
@@ -38,11 +35,11 @@ namespace Ex03.GarageLogic
         {
             List<string> RequirementsList = new List<string>(5);
 
-            RequirementsList.Add("License type"); //0
-            RequirementsList.Add("Engine volume"); //1
-            RequirementsList.Add("Engine type"); //2
-            RequirementsList.Add("Tier manufacturer"); //3
-            RequirementsList.Add("Current tier pressure"); //4
+            RequirementsList.Add("License type (A1, A2, AA, B1)");
+            RequirementsList.Add("Engine volume"); 
+            RequirementsList.Add("Engine type (electric, fuel)"); 
+            RequirementsList.Add("Tier manufacturer"); 
+            RequirementsList.Add("Current tier pressure"); 
 
             return RequirementsList;
         }
@@ -56,12 +53,12 @@ namespace Ex03.GarageLogic
 
             if (Enum.TryParse(i_ListOfAnswers[((int)eRequirements.LicenseType)], out m_LicenseType) == !k_Valid)
             {
-                throw new Exception();
+                throw new ArgumentException("license type is not valid!");
             }
 
             if (int.TryParse(i_ListOfAnswers[((int)eRequirements.EngineVolume)], out m_MotorVolume) == !k_Valid)
             {
-                throw new Exception();
+                throw new ArgumentException("Engine volume must be number!");
             }
 
             try
@@ -73,7 +70,9 @@ namespace Ex03.GarageLogic
                 throw e;
             }
 
-            UpdateWheelsInfo(i_ListOfAnswers[((int)eRequirements.TierManufacturer)], float.Parse(i_ListOfAnswers[((int)eRequirements.CurrentTierPressure)]), m_Wheels.MaxAirPressure);
+            UpdateWheelsInfo(i_ListOfAnswers[((int)eRequirements.TierManufacturer)], float.Parse(i_ListOfAnswers[((int)eRequirements.CurrentTierPressure)]), 31);
+            m_Wheels.NumOfWheels = 2;
+            m_Wheels.MaxAirPressure = 31;
         }
 
         public override List<string> VehicleDetails()
