@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿
 
 namespace Ex03.GarageLogic
 {
@@ -9,7 +6,7 @@ namespace Ex03.GarageLogic
     {
         public enum eClientStatus
         {
-            InProgress, 
+            InProgress = 0, 
             Fixed,
             Paid,
         }
@@ -18,6 +15,26 @@ namespace Ex03.GarageLogic
         string m_OwnerPhoneNumber;
         eClientStatus m_clientStatus = eClientStatus.InProgress;
 
+        public eClientStatus clientStatus 
+        {
+            get 
+            {
+                return m_clientStatus;
+            }
+            set 
+            {
+                m_clientStatus = value;
+            }
+        }
 
+        public string getViheclePlateNumber() 
+        {
+            return m_vehicle.LicensePlate;
+        }
+
+        public void FillWheelsAirToMax() 
+        {
+            m_vehicle.FillWheelsAirToMax();
+        }
     }
 }
