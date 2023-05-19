@@ -35,11 +35,11 @@ namespace Ex03.GarageLogic
         {
             List<string> RequirementsList = new List<string>(5);
 
-            RequirementsList.Add("number of doors");
-            RequirementsList.Add("car color");
-            RequirementsList.Add("Engine type");
-            RequirementsList.Add("tier manufacturer");
-            RequirementsList.Add("current tier pressure");
+            RequirementsList.Add("number of doors"); //0
+            RequirementsList.Add("car color"); // 1
+            RequirementsList.Add("Engine type"); // 2
+            RequirementsList.Add("tier manufacturer"); //3
+            RequirementsList.Add("current tier pressure"); //4
 
             return RequirementsList;
         }
@@ -51,7 +51,7 @@ namespace Ex03.GarageLogic
                 throw new Exception();
             }
 
-            if(Enum.TryParse(i_ListOfAnswers[1], out m_numOfDoors) != k_Valid)
+            if(Enum.TryParse(i_ListOfAnswers[1], out m_CarColor) != k_Valid)
             {
                 throw new Exception();
             }

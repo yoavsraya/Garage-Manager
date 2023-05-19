@@ -25,12 +25,13 @@ namespace Ex03.GarageLogic
 
         public override List<string> RequirementsList()
         {
-            List<string> RequirementsList = new List<string>(4);
+            List<string> RequirementsList = new List<string>(5);
 
-            RequirementsList.Add("License type");
-            RequirementsList.Add("Engine volume");
-            RequirementsList.Add("Engine type");
-            RequirementsList.Add("current tier pressure");
+            RequirementsList.Add("License type"); //0
+            RequirementsList.Add("Engine volume"); //1
+            RequirementsList.Add("Engine type"); //2
+            RequirementsList.Add("tier manufacturer"); //3
+            RequirementsList.Add("current tier pressure"); //4
 
             return RequirementsList;
         }
