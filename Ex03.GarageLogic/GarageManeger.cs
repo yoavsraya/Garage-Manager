@@ -23,6 +23,11 @@ namespace Ex03.GarageLogic
             return found;
         }
 
+        public int getNumberOfClient() 
+        {
+            return m_clients.Count;
+        }
+
         private ClientInfo FindClientByPlateNumber(in string i_plateNumber, out bool io_found)
         {
             ClientInfo client = null;

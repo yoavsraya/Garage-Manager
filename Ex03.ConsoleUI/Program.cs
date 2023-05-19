@@ -9,7 +9,8 @@ namespace Ex03.ConsoleUI
     {
         static void Main()
         {
-
+            TUI userInterFace = default;
+            userInterFace.runGarage();
         }
     }
 }
