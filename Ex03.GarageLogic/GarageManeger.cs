@@ -5,7 +5,7 @@ namespace Ex03.GarageLogic
 {
     public class GarageManeger
     {
-        private Dictionary<ClientInfo.eClientStatus, ClientInfo> m_clients;
+        private Dictionary<ClientInfo.eClientStatus, ClientInfo> m_clients = new Dictionary<ClientInfo.eClientStatus, ClientInfo>();
         const bool k_Found = true;
 
         public bool isVehicleExist(in string i_plateNumber) 

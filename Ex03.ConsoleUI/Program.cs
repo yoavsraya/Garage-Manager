@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Ex03.ConsoleUI
 {
@@ -9,7 +7,7 @@ namespace Ex03.ConsoleUI
     {
         static void Main()
         {
-            TUI userInterFace = default;
+            TUI userInterFace = new TUI();
             userInterFace.runGarage();
         }
     }

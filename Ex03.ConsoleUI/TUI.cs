@@ -6,8 +6,8 @@ namespace Ex03.ConsoleUI
 {
     class TUI
     {
-        private GarageManeger m_myGarage;
-        private CreatingObject factory;
+        private GarageManeger m_myGarage = new GarageManeger();
+        private CreatingObject factory = new CreatingObject();
 
         public void runGarage()
         {
@@ -25,22 +25,29 @@ namespace Ex03.ConsoleUI
 
             factory.createNewVehicle(plateNumber, vehicleModel, vehicleType, m_myGarage);
             Console.WriteLine(string.Format($"Your vehicle has been sign to our garage... we need a few more details about your {vehicleType}"));
-            
+            printListOfString(factory.myVehicleRequirements(m_myGarage));
+
+            Console.WriteLine("Please Press Enter To Exit...");
+            Console.ReadLine();
+        }
+
+        private void printListOfString(List<string> list) 
+        {
+            foreach (string str in list)
+            {
+                Console.WriteLine(str);
+            }
         }
 
         private void printVehicleOptions() 
         {
-            List<string> vehicleOptions = default;
+            List<string> vehicleOptions = new List<string>();
             vehicleOptions.Add("car");
             vehicleOptions.Add("motorbike");
             vehicleOptions.Add("track");
 
-            foreach(string vehicle in vehicleOptions) 
-            {
-                Console.WriteLine(vehicle);
-            }
+            printListOfString(vehicleOptions);
         }
 
-        private
     }
 }
