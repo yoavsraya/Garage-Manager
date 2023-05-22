@@ -162,7 +162,7 @@ namespace Ex03.ConsoleUI
         {
             Console.WriteLine("Welcome to the best garage in the UNIVERSE!!");
             Console.WriteLine("If you're here you probably want to put your cars in our hands");
-            Console.WriteLine("So first of all...");
+            Console.WriteLine($"So first of all...{Environment.NewLine}");
         }
 
         private void putVehicleInGarage()
@@ -199,7 +199,9 @@ namespace Ex03.ConsoleUI
 
         private void putDetailsOfFlatVehicleAndClient() 
         {
-            Console.WriteLine("Your vehicle has been sign to our garage... we need a few more details about your vehicle please put by order");
+            Console.WriteLine(@"
+Your vehicle has been sign to our garage!
+We need a few more details about your vehicle, please enter by order of the printing:");
             printListOfString(factory.myVehicleRequirements(m_myGarage));
             List<string> listOfRequirementsForVehicle = userInputForVehicleRequirements();
             List<string> listOfRequirementsForClientInfo = userInputForClientInfoRequirements();
@@ -213,7 +215,7 @@ namespace Ex03.ConsoleUI
             string plateNumber = Console.ReadLine();
             Console.WriteLine("Also your vehicle model:");
             string vehicleModel = Console.ReadLine();
-            Console.WriteLine("Choose your vehicle from the option below... please write correct");
+            Console.WriteLine("Choose your vehicle from the option below. please mind Capital Letters");
             printListOfString(m_myGarage.GetVehicleOptions());
             string vehicleType = Console.ReadLine();
             factory.createNewVehicle(plateNumber, vehicleModel, vehicleType, m_myGarage);
@@ -222,9 +224,10 @@ namespace Ex03.ConsoleUI
         private List<string> userInputForClientInfoRequirements() 
         {
             List<string> listOfClientInfoFromUser = new List<string>();
-            Console.WriteLine("In addition we need this details about you:");
+            Console.WriteLine(@"
+In addition we need this details about you:");
             printListOfString(factory.myClientInfoRequirements(m_myGarage));
-            Console.WriteLine("Please enter the details in the same order as we ask for them!");
+            Console.WriteLine("Please enter the details in the same order printed");
 
             for(int i = 0; i < factory.myClientInfoRequirements(m_myGarage).Count; i++)
             {

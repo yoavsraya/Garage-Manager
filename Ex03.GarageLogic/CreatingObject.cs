@@ -24,7 +24,7 @@ namespace Ex03.GarageLogic
             {
                 if(Enum.TryParse(i_vehicleType, out eVehiclesType vehiclesType) == false)
                 {
-                    throw new ArgumentException("There isn't a vehicle type like that... check if you wright it correctly...");
+                    throw new ArgumentException("this is not a possible vehicle");
                 }
 
                 switch (vehiclesType) 
