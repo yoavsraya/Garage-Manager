@@ -133,7 +133,7 @@ namespace Ex03.ConsoleUI
 
         private void changeVehicleCondition()
         {
-            Console.WriteLine("Please enter the plate number of the vehicle you want to change his condotion");
+            Console.WriteLine("Please enter the plate number of the vehicle you want to change his condition");
             string plateNumber = Console.ReadLine();
             Console.WriteLine("Please enter the new condition you wish(Paid, InProgress, Fixed)");
             string newCondition = Console.ReadLine();
@@ -143,7 +143,7 @@ namespace Ex03.ConsoleUI
 
         private void getListOfVehiclesByFilter() 
         {
-            Console.WriteLine("Please enter the condiotion of vehicles you want the list to include, the option are: All, Paid, InProgress, Fixed.");
+            Console.WriteLine("Please enter the condition of vehicles you want the list to include, the option are: All, Paid, InProgress, Fixed.");
             string condition = Console.ReadLine();
             printListOfString(m_myGarage.ReturnListOfPlatesByFilter(condition));
         }
@@ -157,8 +157,8 @@ namespace Ex03.ConsoleUI
 4. Fill air to maximum to vehicle from the garage.
 5. Fill vehicle gas to max from the garage.
 6. Fill vehicle electric to max from the garage.
-7. Get full detatils of car from the garage by playe number.
-8. If you'r not interested you can leave we're won't be offended"));
+7. Get full details of car from the garage by plate number.
+8. If you're not interested you can leave we're won't be offended"));
 
             eChoiceFromMenu eChoice;
             while (Enum.TryParse(Console.ReadLine(),out eChoice))
@@ -171,8 +171,8 @@ namespace Ex03.ConsoleUI
 
         private void wellcoming() 
         {
-            Console.WriteLine("Wellcome to the best garage in Jaffa!!");
-            Console.WriteLine("If you'r here you probably want to put your cars in our hands");
+            Console.WriteLine("Welcome to the best garage in the UNIVERSE!!");
+            Console.WriteLine("If you're here you probably want to put your cars in our hands");
             Console.WriteLine("So first of all...");
         }
 
