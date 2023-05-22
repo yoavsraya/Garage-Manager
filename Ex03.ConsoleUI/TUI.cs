@@ -8,45 +8,80 @@ namespace Ex03.ConsoleUI
     {
         private GarageManeger m_myGarage = new GarageManeger();
         private CreatingObject factory = new CreatingObject();
+        const bool k_Deploy = true;
 
         public void runGarage()
         {
             wellcoming();
-            eChoiceFromMenu eChoice = eChoiceFromMenu.notChoicenYet;
+            bool firstCarDeploy = !k_Deploy;
+
+            while(firstCarDeploy == !k_Deploy)
+            {
+                try 
+                {
+                    putVehicleInGarage();
+                    firstCarDeploy = k_Deploy;
+                }
+                catch(Exception e) 
+                {
+                    Console.WriteLine(e.Message);
+                }
+            }
+
+            eChoiceFromMenu eChoice = eChoiceFromMenu.notChosen;
 
             while (eChoice != eChoiceFromMenu.exit) 
             {
-                putVehicleInGarage();
 
                 eChoice = getUserChoiceFromMenu();
 
-                switch (eChoice) 
+                try
                 {
-                    case eChoiceFromMenu.enterNewCar:
-                        putVehicleInGarage();
-                        break;
-                    case eChoiceFromMenu.getListByFilter:
-                        getListOfVehiclesByFilter();
-                        break;
-                    case eChoiceFromMenu.changeVehicleCondition:
-                        changeVehicleCondition();
-                        break;
-                    case eChoiceFromMenu.fillAirToMax:
-                        fillAirToMax();
-                        break;
-
-
+                    switch (eChoice) 
+                    {
+                        case eChoiceFromMenu.enterNewCar:
+                            putVehicleInGarage();
+                            break;
+                        case eChoiceFromMenu.getListByFilter:
+                            getListOfVehiclesByFilter();
+                            break;
+                        case eChoiceFromMenu.changeVehicleCondition:
+                            changeVehicleCondition();
+                            break;
+                        case eChoiceFromMenu.fillAirToMax:
+                            fillAirToMax();
+                            break;
+                        case eChoiceFromMenu.fillGasToMax:
+                            fillGasToMax();
+                            break;
+                        case eChoiceFromMenu.fillElectricToMax:
+                            fillElectricToMax();
+                            break;
+                        case eChoiceFromMenu.getFullDetails:
+                            getFullDetailsOnVehicle();
+                            break;
+                        case eChoiceFromMenu.exit:
+                            break;
+                        default:
+                            eChoice = eChoiceFromMenu.notChosen;
+                            Console.WriteLine("Invalid choice... try again");
+                            break;
+                    }
+                }
+                catch(Exception e) 
+                {
+                    Console.WriteLine(e.Message);
                 }
             }
-            
 
-            //Console.WriteLine("Please Press Enter To Exit...");
-            //Console.ReadLine();
+            Console.WriteLine("Thank you for visiting our garage!");
+            Console.WriteLine("Please Press Enter To Exit...");
+            Console.ReadLine();
         }
 
         public enum eChoiceFromMenu
         {
-            notChoicenYet = 0,
+            notChosen = 0,
             enterNewCar = 1,
             getListByFilter = 2,
             changeVehicleCondition = 3,
@@ -58,11 +93,42 @@ namespace Ex03.ConsoleUI
 
         }
 
+        private void getFullDetailsOnVehicle() 
+        {
+            Console.WriteLine("Please enter plate number:");
+            string plateNumberToGetDetails = Console.ReadLine();
+            printListOfString(m_myGarage.getVehicleInfo(plateNumberToGetDetails));
+        }
+
+        private void fillElectricToMax()
+        {
+            Console.WriteLine("Please enter plate number:");
+            string plateNumberToFillElectric = Console.ReadLine();
+
+            Console.WriteLine("Please enter number of hours to fill:");
+            string numberOfHoursToFill = Console.ReadLine();
+
+            m_myGarage.FillEnergyInVehicle(plateNumberToFillElectric, "Electric", numberOfHoursToFill);
+        }
+
+        private void fillGasToMax() 
+        {
+            Console.WriteLine("Please enter plate number:");
+            string plateNumberToFillGas = Console.ReadLine();
+            Console.WriteLine("Please enter gas type from the option below:");
+            printListOfString(m_myGarage.GetGasTypeList());
+            string gasType = Console.ReadLine();
+            Console.WriteLine("Please enter number of liters to fill:");
+            string numberOfLitersToFill = Console.ReadLine();
+
+            m_myGarage.FillEnergyInVehicle(plateNumberToFillGas, gasType, numberOfLitersToFill);
+        }
+
         private void fillAirToMax()
         {
-            Console.WriteLine("Please enter plate number");
-            string plateNumberToFill = Console.ReadLine();
-            m_myGarage.FillWheelsToMax(plateNumberToFill);
+            Console.WriteLine("Please enter plate number:");
+            string plateNumberToFillAir = Console.ReadLine();
+            m_myGarage.FillWheelsToMax(plateNumberToFillAir);
         }
 
         private void changeVehicleCondition()
@@ -72,14 +138,7 @@ namespace Ex03.ConsoleUI
             Console.WriteLine("Please enter the new condition you wish(Paid, InProgress, Fixed)");
             string newCondition = Console.ReadLine();
 
-            if(m_myGarage.UpdateClientStatus(plateNumber, newCondition) == false)
-            {
-                Console.WriteLine("The plate number you entered isn't exist here...");
-            }
-            else 
-            {
-                Console.WriteLine("Condition changed succesfully");
-            }
+            m_myGarage.UpdateClientStatus(plateNumber, newCondition);
         }
 
         private void getListOfVehiclesByFilter() 
@@ -140,7 +199,7 @@ namespace Ex03.ConsoleUI
             Console.WriteLine("Also your vehicle model:");
             string vehicleModel = Console.ReadLine();
             Console.WriteLine("Choose your vehicle from the option below... please write correct");
-            printVehicleOptions();
+            printListOfString(m_myGarage.GetVehicleOptions());
             string vehicleType = Console.ReadLine();
             factory.createNewVehicle(plateNumber, vehicleModel, vehicleType, m_myGarage);
         }
@@ -176,18 +235,13 @@ namespace Ex03.ConsoleUI
         {
             foreach (string str in list)
             {
-                Console.WriteLine(str);
+                Console.Write(str);
+                if(str != list[list.Count - 1])
+                {
+                    Console.Write(", ");
+                }
             }
-        }
-
-        private void printVehicleOptions() 
-        {
-            List<string> vehicleOptions = new List<string>();
-            vehicleOptions.Add("car");
-            vehicleOptions.Add("motorbike");
-            vehicleOptions.Add("track");
-
-            printListOfString(vehicleOptions);
+            Console.WriteLine(" ");
         }
 
     }

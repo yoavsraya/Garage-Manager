@@ -7,31 +7,40 @@ namespace Ex03.GarageLogic
     public class CreatingObject
     {
         private vehicle m_newVehicle;
+        private enum eVehiclesType
+        {
+            car = 0,
+            motorbike,
+            track,
+        }
 
         public void createNewVehicle(in string i_plateNumber, in string i_vehicleModel, in string i_vehicleType, GarageManeger i_garage)
         {
             if(i_garage.isVehicleExist(i_plateNumber) == true) 
             {
-                i_garage.UpdateClientStatus(i_plateNumber, "in rogress");
+                i_garage.UpdateClientStatus(i_plateNumber, "inProgress");
             }
             else 
             {
-                switch (i_vehicleType) 
+                if(Enum.TryParse(i_vehicleType, out eVehiclesType vehiclesType) == false)
                 {
-                    case "car":
+                    throw new Exception();
+                }
+
+                switch (vehiclesType) 
+                {
+                    case eVehiclesType.car:
                         Car newCar = new Car(i_plateNumber, i_vehicleModel);
                         m_newVehicle = newCar;
                         break;
-                    case "motorbike":
+                    case eVehiclesType.motorbike:
                         MotorBike newMotorBike = new MotorBike(i_plateNumber, i_vehicleModel);
                         m_newVehicle = newMotorBike;
                         break;
-                    case "track":
+                    case eVehiclesType.track:
                         Track newTrack = new Track(i_plateNumber, i_vehicleModel);
                         m_newVehicle = newTrack;
                         break;
-                    default:
-                        throw new Exception();
                 }
             }
         }
