@@ -187,7 +187,7 @@ namespace Ex03.GarageLogic
                 if (type.IsClass)
                 {
                     classString = type.Name;
-                    if (classString != "GarageManeger" && classString != "ClientInfo")
+                    if (type == typeof(vehicle))
                     {
                         vehicleTypes.Add(classString);
                     }
