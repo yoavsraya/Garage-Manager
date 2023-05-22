@@ -118,6 +118,7 @@ namespace Ex03.ConsoleUI
             Console.WriteLine("Please enter gas type from the option below:");
             printListOfString(m_myGarage.GetGasTypeList());
             string gasType = Console.ReadLine();
+            m_myGarage.isGasType(gasType);
             Console.WriteLine("Please enter number of liters to fill:");
             string numberOfLitersToFill = Console.ReadLine();
 
