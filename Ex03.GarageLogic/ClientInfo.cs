@@ -10,6 +10,7 @@ namespace Ex03.GarageLogic
             InProgress = 0, 
             Fixed,
             Paid,
+            All,
         }
         private vehicle m_vehicle;
         private string m_OwnerName;
