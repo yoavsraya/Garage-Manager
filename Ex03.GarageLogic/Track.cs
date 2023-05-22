@@ -4,7 +4,7 @@ using static Ex03.GarageLogic.Track.eRequirements;
 
 namespace Ex03.GarageLogic
 {
-    class Track : vehicle
+    class Track : Vehicle
     {
         public enum eRequirements
         {

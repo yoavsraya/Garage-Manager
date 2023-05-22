@@ -6,7 +6,7 @@ namespace Ex03.GarageLogic
     
     public class CreatingObject
     {
-        private vehicle m_newVehicle;
+        private Vehicle m_newVehicle;
         private enum eVehiclesType
         {
             car = 0,

@@ -4,7 +4,7 @@ using static Ex03.GarageLogic.Car.eRequirements;
 
 namespace Ex03.GarageLogic
 {
-    class Car : vehicle
+    class Car : Vehicle
     {
         public enum eNumOfDoors
         {

@@ -138,7 +138,7 @@ namespace Ex03.GarageLogic
             return vehicleInfo;
         }
 
-        public List<string> getVehicleRequirement(vehicle vehicle) 
+        public List<string> getVehicleRequirement(Vehicle vehicle) 
         {
             return vehicle.RequirementsList();
         }
@@ -151,7 +151,7 @@ namespace Ex03.GarageLogic
             return requirementList;
         }
 
-        public void detailsToAddClient(vehicle vehicle, in List<string> i_vehicleDetailsList, in List<string> i_clientDetailsList) 
+        public void detailsToAddClient(Vehicle vehicle, in List<string> i_vehicleDetailsList, in List<string> i_clientDetailsList) 
         {
             const int v_Name = 0, v_Number = 1; 
             vehicle.BuildVehicle(i_vehicleDetailsList);
@@ -187,7 +187,7 @@ namespace Ex03.GarageLogic
                 if (type.IsClass)
                 {
                     classString = type.Name;
-                    if (type == typeof(vehicle))
+                    if (typeof(Vehicle).IsAssignableFrom(type) && type != typeof(Vehicle))
                     {
                         vehicleTypes.Add(classString);
                     }

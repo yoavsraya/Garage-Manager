@@ -12,12 +12,12 @@ namespace Ex03.GarageLogic
             Paid,
             All,
         }
-        private vehicle m_vehicle;
+        private Vehicle m_vehicle;
         private string m_OwnerName;
         private string m_OwnerPhoneNumber;
         private eClientStatus m_clientStatus = eClientStatus.InProgress;
 
-        public ClientInfo(string i_ownerName, string i_ownerPhoneNumber, vehicle vehicle)
+        public ClientInfo(string i_ownerName, string i_ownerPhoneNumber, Vehicle vehicle)
         {
             m_OwnerName = i_ownerName;
             m_OwnerPhoneNumber = i_ownerPhoneNumber;

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Ex03.GarageLogic
 {
-    public abstract class vehicle
+    public abstract class Vehicle
     {
         protected const bool k_Valid = true;
         private readonly string r_LicensePlate;
@@ -13,7 +13,7 @@ namespace Ex03.GarageLogic
         protected MotorType m_MotorType = null;      
         protected Wheels m_Wheels = null;
 
-        public vehicle(in string i_LicensePlate, in string i_ModelName)
+        public Vehicle(in string i_LicensePlate, in string i_ModelName)
         {
             r_LicensePlate = i_LicensePlate;
             r_ModelName = i_ModelName;

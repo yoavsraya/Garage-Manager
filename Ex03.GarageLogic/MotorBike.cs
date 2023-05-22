@@ -4,7 +4,7 @@ using static Ex03.GarageLogic.MotorBike.eRequirements;
 
 namespace Ex03.GarageLogic
 {
-    class MotorBike : vehicle
+    class MotorBike : Vehicle
     {
         public enum eLicenseType
         {
