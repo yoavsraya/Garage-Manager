@@ -200,7 +200,6 @@ namespace Ex03.ConsoleUI
         private void putDetailsOfFlatVehicleAndClient() 
         {
             Console.WriteLine(@"
-Your vehicle has been sign to our garage!
 We need a few more details about your vehicle, please enter by order of the printing:");
             printListOfString(factory.myVehicleRequirements(m_myGarage));
             List<string> listOfRequirementsForVehicle = userInputForVehicleRequirements();
@@ -219,6 +218,8 @@ We need a few more details about your vehicle, please enter by order of the prin
             printListOfString(m_myGarage.GetVehicleOptions());
             string vehicleType = Console.ReadLine();
             factory.createNewVehicle(plateNumber, vehicleModel, vehicleType, m_myGarage);
+            Console.WriteLine(" ");
+            Console.WriteLine("Your vehicle has been sign to our garage!");
         }
 
         private List<string> userInputForClientInfoRequirements() 

@@ -62,6 +62,7 @@ namespace Ex03.GarageLogic
             try
             {
                 m_Wheels.UpdateWheelDetails(float.Parse(i_ListOfAnswers[(int)CurrentTierPressure]), i_ListOfAnswers[(int)TierManufacturer]);
+                m_MotorType = new GasMotor(MotorType.eEnergyType.Soler);
                 updateMaxEnergy();
                 m_Wheels.CurrentAirPressure = float.Parse(i_ListOfAnswers[(int)currentEnergy]);
             }
@@ -70,7 +71,6 @@ namespace Ex03.GarageLogic
                 throw e;
             }
 
-            m_MotorType = new GasMotor(MotorType.eEnergyType.Soler);
       
         }
 
