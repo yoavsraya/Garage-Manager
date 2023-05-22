@@ -14,7 +14,6 @@ namespace Ex03.ConsoleUI
         public void runGarage()
         {
             wellcoming();
-            //putVehicleInGarage();
 
             eChoiceFromMenu eChoice = eChoiceFromMenu.notChosen;
             int choice = 0;
@@ -149,7 +148,8 @@ namespace Ex03.ConsoleUI
 5. Fill vehicle gas to max from the garage.
 6. Fill vehicle electric to max from the garage.
 7. Get full details of car from the garage by plate number.
-8. If you're not interested you can leave we're won't be offended"));
+8. If you're not interested you can leave we're won't be offended
+"));
 
             int eChoice;
             while (int.TryParse(Console.ReadLine(),out eChoice) && eChoice < 1 || eChoice > Enum.GetNames(typeof(eChoiceFromMenu)).Length)
@@ -212,7 +212,8 @@ We need a few more details about your vehicle, please enter by order of the prin
 
         private void putFlatVehicleInGarage() 
         {
-            Console.WriteLine("Please give us your vehicle plate number:");
+            Console.WriteLine(@"
+Please give us your vehicle plate number:");
             string plateNumber = Console.ReadLine();
             Console.WriteLine("Also your vehicle model:");
             string vehicleModel = Console.ReadLine();
