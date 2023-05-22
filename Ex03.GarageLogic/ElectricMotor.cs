@@ -4,21 +4,24 @@ namespace Ex03.GarageLogic
 {
     internal class ElectricMotor : MotorType
     {
-        private float m_BatteryHoursLeft;
-        private float m_BatteryMaxHours;
+        private float m_BatteryHoursLeft = 0;
+        private float m_BatteryMaxHours = 0;
 
         public override void ReFill(in float i_energy, in eEnergyType i_energyType)
         {
             if (i_energyType != EnergyType)
             {
-                throw new energyTypeException();
+                throw new ArgumentException("this car can get only energy");
             }
             else if (i_energy + m_BatteryHoursLeft > m_BatteryMaxHours)
             {
-                throw new ArgumentException("the energy to add is more then the energy allow");
+                m_BatteryHoursLeft = m_BatteryMaxHours;
+                throw new ArgumentException("the energy can't be more then the max energy capacity, energy filled to maximum!");
             }
-
-            m_BatteryHoursLeft += i_energy;
+            else
+            {
+                m_BatteryHoursLeft += i_energy;
+            }
         }
 
         public override float maxEnergy
@@ -33,7 +36,8 @@ namespace Ex03.GarageLogic
             }
         }
 
-        public ElectricMotor(eEnergyType i_EnergyType) : base(i_EnergyType){}
+        public ElectricMotor(eEnergyType i_EnergyType) : base(i_EnergyType)
+        {}
 
         public override string ToString()
         {

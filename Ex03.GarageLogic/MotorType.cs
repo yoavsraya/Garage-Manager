@@ -12,9 +12,6 @@ namespace Ex03.GarageLogic
             Octan98,
             Electric,
         }
-
-        private eEnergyType m_EnergyType;
-
         public eEnergyType EnergyType
         {
             get
@@ -34,6 +31,8 @@ namespace Ex03.GarageLogic
             }
         }
 
+        private eEnergyType m_EnergyType;
+
         public abstract void ReFill(in float i_energy, in eEnergyType i_energyType);
 
         public abstract float maxEnergy
@@ -46,7 +45,6 @@ namespace Ex03.GarageLogic
         {
             m_EnergyType = i_EnergyType;
         }
-
 
     }
 }

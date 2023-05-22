@@ -8,9 +8,8 @@ namespace Ex03.GarageLogic
         protected const bool k_Valid = true;
         private readonly string r_LicensePlate;
         private readonly string r_ModelName;
-        private float m_EnergyMeterPercent;
-        protected byte m_NumOfRequirements = 0;
-
+        private float m_EnergyMeterPercent = 0;
+        protected int m_NumOfRequirements = 0;
         protected MotorType m_MotorType = null;      
         protected Wheels m_Wheels = null;
 
@@ -28,11 +27,6 @@ namespace Ex03.GarageLogic
             }
         }
 
-        protected void UpdateWheelsInfo(in string i_Manufacturer, in float i_CurrentAirPressure, in float i_MaxTirePressure)
-        {
-            m_Wheels = new Wheels(i_Manufacturer, i_CurrentAirPressure, i_MaxTirePressure); 
-        }
-
         public void ReFillVehicle(in float i_NewCurrentEnergy, in MotorType.eEnergyType i_EnergyType)
         {
             if(m_MotorType == null)
@@ -48,7 +42,11 @@ namespace Ex03.GarageLogic
 
         public void FillWheelsAirToMax()
         {
-            FillWheelsAir(m_Wheels.MaxAirPressure);
+            if (m_Wheels == null)
+            {
+                throw new NullReferenceException("wheels details has not entered yet");
+            }
+            m_Wheels.CurrentAirPressure = m_Wheels.MaxAirPressure;
         }
 
         public void FillWheelsAir(in float i_pressure)
@@ -77,7 +75,7 @@ namespace Ex03.GarageLogic
             }
             else
             {
-                throw new ArgumentException();
+                throw new ArgumentException("engine type must be electric/fuel only!");
             }
         }
 
@@ -104,5 +102,7 @@ namespace Ex03.GarageLogic
 
             return details;
         }
+
+        protected abstract void updateMaxEnergy();
     }
 }

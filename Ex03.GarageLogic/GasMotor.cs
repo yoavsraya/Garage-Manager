@@ -4,22 +4,24 @@ namespace Ex03.GarageLogic
 {
     internal class GasMotor : MotorType
     {
-        private float m_CurrentGasCapacity;
-        private float m_MaxGasCspscity;
+        private float m_CurrentGasCapacity = 0;
+        private float m_MaxGasCspscity = 0;
 
         public override void ReFill(in float i_energy, in eEnergyType i_energyType)
         {
             if (EnergyType != i_energyType)
             {
-                throw new energyTypeException();
+                throw new ArgumentException("fuel type is not matching the car fuel type!");
             }
-
             else if (i_energy + m_CurrentGasCapacity > m_MaxGasCspscity)
             {
-                throw new ArgumentException();
+                m_CurrentGasCapacity = m_MaxGasCspscity;
+                throw new ArgumentException("can't feel more then the max fuel capacity. fuel filled to maximum!");
             }
-            
-            m_CurrentGasCapacity += i_energy;
+            else
+            {
+                m_CurrentGasCapacity += i_energy;
+            }
         }
 
         public override float maxEnergy
@@ -41,5 +43,6 @@ namespace Ex03.GarageLogic
         {
             return "Fuel Engine";
         }
+
     }
 }

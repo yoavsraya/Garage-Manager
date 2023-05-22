@@ -4,11 +4,10 @@ namespace Ex03.GarageLogic
 {
     public class Wheels
     {
-        private string m_Manufacturer;
+        private string m_Manufacturer = default;
         private float m_CurrentAirPressure = 0;
-        private float m_MaxAirPressure;
-        private byte m_NumOfWheels = 0;
-
+        private readonly float m_MaxAirPressure;
+        private readonly byte m_NumOfWheels;
 
         internal string Manufacturer
         {
@@ -30,6 +29,10 @@ namespace Ex03.GarageLogic
             }
             set
             {
+                if (value > m_MaxAirPressure)
+                {
+                    throw new ArgumentException("air pressure can't be more then the max wheels air pressure");
+                }
                 m_CurrentAirPressure = value;
             }
         }
@@ -40,10 +43,6 @@ namespace Ex03.GarageLogic
             {
                 return m_MaxAirPressure;
             }
-            set
-            {
-                m_MaxAirPressure = value;
-            }
         }
 
         internal byte NumOfWheels
@@ -52,12 +51,7 @@ namespace Ex03.GarageLogic
             {
                 return m_NumOfWheels;
             }
-            set
-            {
-                m_NumOfWheels = value;
-            }
         }
-
 
         internal void FillAirWheel(in float i_airPressure)
         {
@@ -69,17 +63,20 @@ namespace Ex03.GarageLogic
             m_CurrentAirPressure += i_airPressure;
         }
 
-        internal Wheels(in string i_Manufacturer, in float i_CurrentAirPressure, in float i_MaxAirPressure)
+        internal Wheels(in byte i_NumOfWheels, in float i_MaxAirPressure)
         {
-            if (i_CurrentAirPressure > i_MaxAirPressure)
-            {
-                throw new ArgumentException("Tier pressure can't be more then the maximum");
-            }
-            m_Manufacturer = i_Manufacturer;
-            m_CurrentAirPressure = i_CurrentAirPressure;
             m_MaxAirPressure = i_MaxAirPressure;
+            m_NumOfWheels = i_NumOfWheels;
         }
 
-
+        internal void UpdateWheelDetails(in float i_TierPressure, in string i_Manufactor)
+        {
+            m_Manufacturer = i_Manufactor;
+            if (i_TierPressure > m_MaxAirPressure)
+            {
+                throw new ArgumentException("tier pressure can't be more then the wheel max pressure!");
+            }
+            m_CurrentAirPressure = i_TierPressure;
+        }
     }
 }

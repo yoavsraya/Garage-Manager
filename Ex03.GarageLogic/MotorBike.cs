@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System;
+using static Ex03.GarageLogic.MotorBike.eRequirements;
 
 namespace Ex03.GarageLogic
 {
@@ -13,7 +14,7 @@ namespace Ex03.GarageLogic
             B1,
         }
 
-        private enum eRequirements
+        public enum eRequirements
         {
             LicenseType = 0,
             EngineVolume,
@@ -28,18 +29,19 @@ namespace Ex03.GarageLogic
         public MotorBike(in string i_LicensePlate, in string i_ModelName)
             : base(i_LicensePlate, i_ModelName)
         {
-            m_NumOfRequirements = 5;
+            m_NumOfRequirements = (Enum.GetNames(typeof(eRequirements)).Length);
+            m_Wheels = new Wheels(2, 31);
         }
 
         public override List<string> RequirementsList()
         {
             List<string> RequirementsList = new List<string>(5);
 
-            RequirementsList.Add("License type (A1, A2, AA, B1)");
+            RequirementsList.Add("License type (A1/A2/AA/B1)");
             RequirementsList.Add("Engine volume"); 
-            RequirementsList.Add("Engine type (electric, fuel)"); 
-            RequirementsList.Add("Tier manufacturer"); 
-            RequirementsList.Add("Current tier pressure"); 
+            RequirementsList.Add("Engine type (electric/fuel)"); 
+            RequirementsList.Add("Tier manufacturer");
+            RequirementsList.Add($"Current tier pressure (max pressure: {m_Wheels.MaxAirPressure} )"); 
 
             return RequirementsList;
         }
@@ -51,28 +53,28 @@ namespace Ex03.GarageLogic
                 throw new ArgumentException("answer list is not having the full amount of answers");
             }
 
-            if (Enum.TryParse(i_ListOfAnswers[((int)eRequirements.LicenseType)], out m_LicenseType) == !k_Valid)
+            if (Enum.TryParse(i_ListOfAnswers[((int)LicenseType)], out m_LicenseType) == !k_Valid)
             {
                 throw new ArgumentException("license type is not valid!");
             }
 
-            if (int.TryParse(i_ListOfAnswers[((int)eRequirements.EngineVolume)], out m_MotorVolume) == !k_Valid)
+            if (int.TryParse(i_ListOfAnswers[((int)EngineVolume)], out m_MotorVolume) == !k_Valid)
             {
                 throw new ArgumentException("Engine volume must be number!");
             }
 
             try
             {
-                CreateEngine(i_ListOfAnswers[((int)eRequirements.EngineType)]);
+                m_Wheels.UpdateWheelDetails(float.Parse(i_ListOfAnswers[(int)CurrentTierPressure]), i_ListOfAnswers[(int)TierManufacturer]);
+                CreateEngine(i_ListOfAnswers[((int)EngineType)]);
+                updateMaxEnergy();
+                
             }
             catch(Exception e)
             {
                 throw e;
             }
-
-            UpdateWheelsInfo(i_ListOfAnswers[((int)eRequirements.TierManufacturer)], float.Parse(i_ListOfAnswers[((int)eRequirements.CurrentTierPressure)]), 31);
-            m_Wheels.NumOfWheels = 2;
-            m_Wheels.MaxAirPressure = 31;
+            
         }
 
         public override List<string> VehicleDetails()
@@ -81,8 +83,25 @@ namespace Ex03.GarageLogic
             details.Add(string.Format("License Type: {0}", m_LicenseType));
             details.Add(string.Format("Engine volume: {0}", m_MotorVolume));
 
-
             return details;
+        }
+
+        protected override void updateMaxEnergy()
+        {
+            if (m_MotorType == null)
+            {
+                throw new NullReferenceException("engine has not set yet!");
+            }
+
+            else if(m_MotorType is GasMotor)
+            {
+                m_MotorType.maxEnergy = 6.4f;
+            }
+            else // is electric
+            {
+                m_MotorType.maxEnergy = 2.6f;
+            }
+
         }
     }
 }
