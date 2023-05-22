@@ -17,11 +17,13 @@ namespace Ex03.ConsoleUI
             //putVehicleInGarage();
 
             eChoiceFromMenu eChoice = eChoiceFromMenu.notChosen;
+            int choice = 0;
 
             while (eChoice != eChoiceFromMenu.exit) 
             {
 
-                eChoice = getUserChoiceFromMenu();
+                choice = getUserChoiceFromMenu();
+                eChoice = (eChoiceFromMenu)choice;
 
                 try
                 {
@@ -137,7 +139,7 @@ namespace Ex03.ConsoleUI
             printListOfString(m_myGarage.ReturnListOfPlatesByFilter(condition));
         }
 
-        private eChoiceFromMenu getUserChoiceFromMenu()
+        private int getUserChoiceFromMenu()
         {
             Console.WriteLine(string.Format(@"We offer in our garage these services:
 1. Enter a vehicle to the garage.
@@ -149,8 +151,8 @@ namespace Ex03.ConsoleUI
 7. Get full details of car from the garage by plate number.
 8. If you're not interested you can leave we're won't be offended"));
 
-            eChoiceFromMenu eChoice;
-            while (Enum.TryParse(Console.ReadLine(),out eChoice))
+            int eChoice;
+            while (int.TryParse(Console.ReadLine(),out eChoice) && eChoice < 1 || eChoice > Enum.GetNames(typeof(eChoiceFromMenu)).Length)
             {
                 Console.WriteLine("Wrong input try again...");
             }
