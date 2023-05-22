@@ -12,6 +12,7 @@ namespace Ex03.GarageLogic
             TrunkValume,
             TierManufacturer,
             CurrentTierPressure,
+            currentEnergy,
         }
 
         private const bool k_HasToxicTrunk = true;
@@ -27,12 +28,13 @@ namespace Ex03.GarageLogic
 
         public override List<string> RequirementsList()
         {
-            List<string> RequirementsList = new List<string>(4);
+            List<string> RequirementsList = new List<string>(m_NumOfRequirements);
 
             RequirementsList.Add("hold toxic cargo (yes, no)"); 
             RequirementsList.Add("trunk volume"); 
             RequirementsList.Add("tier manufacturer");
-            RequirementsList.Add("current tier pressure"); 
+            RequirementsList.Add($"Current tier pressure (max: {m_Wheels.MaxAirPressure})");
+            RequirementsList.Add("current fuel in liter"); 
 
             return RequirementsList;
         }
@@ -61,6 +63,7 @@ namespace Ex03.GarageLogic
             {
                 m_Wheels.UpdateWheelDetails(float.Parse(i_ListOfAnswers[(int)CurrentTierPressure]), i_ListOfAnswers[(int)TierManufacturer]);
                 updateMaxEnergy();
+                m_Wheels.CurrentAirPressure = float.Parse(i_ListOfAnswers[(int)currentEnergy]);
             }
             catch(Exception e)
             {
@@ -100,9 +103,6 @@ namespace Ex03.GarageLogic
             }
         }
 
-        public override string ToString()
-        {
-            return "Car";
-        }
+    
     }
 }

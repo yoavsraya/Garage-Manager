@@ -21,6 +21,7 @@ namespace Ex03.GarageLogic
             EngineType,
             TierManufacturer,
             CurrentTierPressure,
+            currentEnergy,
         }
 
         private int m_MotorVolume;
@@ -35,13 +36,14 @@ namespace Ex03.GarageLogic
 
         public override List<string> RequirementsList()
         {
-            List<string> RequirementsList = new List<string>(5);
+            List<string> RequirementsList = new List<string>(m_NumOfRequirements);
 
             RequirementsList.Add("License type (A1/A2/AA/B1)");
             RequirementsList.Add("Engine volume"); 
             RequirementsList.Add("Engine type (electric/fuel)"); 
             RequirementsList.Add("Tier manufacturer");
-            RequirementsList.Add($"Current tier pressure (max pressure: {m_Wheels.MaxAirPressure} )"); 
+            RequirementsList.Add($"Current tier pressure (max: {m_Wheels.MaxAirPressure})"); 
+            RequirementsList.Add("Power left (in hours for electric / in liter for fuel)"); 
 
             return RequirementsList;
         }
@@ -68,7 +70,8 @@ namespace Ex03.GarageLogic
                 m_Wheels.UpdateWheelDetails(float.Parse(i_ListOfAnswers[(int)CurrentTierPressure]), i_ListOfAnswers[(int)TierManufacturer]);
                 CreateEngine(i_ListOfAnswers[((int)EngineType)]);
                 updateMaxEnergy();
-                
+                m_Wheels.CurrentAirPressure = float.Parse(i_ListOfAnswers[(int)currentEnergy]);
+
             }
             catch(Exception e)
             {
