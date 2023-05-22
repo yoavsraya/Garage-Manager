@@ -50,7 +50,7 @@ namespace Ex03.GarageLogic
             RequirementsList.Add("Engine type (electric, fuel)");
             RequirementsList.Add("Tier manufacturer");
             RequirementsList.Add($"Current tier pressure (max : {m_Wheels.MaxAirPressure})");
-            RequirementsList.Add("Power left (in hours for electric / in liter for fuel)"); 
+            RequirementsList.Add($"Power left (in hours for electric max: {5.2} / in liter for fuel max: {46})"); 
             
 
             return RequirementsList;
