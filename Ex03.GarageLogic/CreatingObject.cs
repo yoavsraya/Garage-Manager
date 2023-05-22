@@ -9,9 +9,9 @@ namespace Ex03.GarageLogic
         private Vehicle m_newVehicle;
         private enum eVehiclesType
         {
-            car = 0,
-            motorbike,
-            track,
+            Car = 0,
+            MotorBike,
+            Track,
         }
 
         public void createNewVehicle(in string i_plateNumber, in string i_vehicleModel, in string i_vehicleType, in GarageManeger i_garage)
@@ -24,20 +24,20 @@ namespace Ex03.GarageLogic
             {
                 if(Enum.TryParse(i_vehicleType, out eVehiclesType vehiclesType) == false)
                 {
-                    throw new Exception();
+                    throw new ArgumentException("There isn't a vehicle type like that... check if you wright it correctly...");
                 }
 
                 switch (vehiclesType) 
                 {
-                    case eVehiclesType.car:
+                    case eVehiclesType.Car:
                         Car newCar = new Car(i_plateNumber, i_vehicleModel);
                         m_newVehicle = newCar;
                         break;
-                    case eVehiclesType.motorbike:
+                    case eVehiclesType.MotorBike:
                         MotorBike newMotorBike = new MotorBike(i_plateNumber, i_vehicleModel);
                         m_newVehicle = newMotorBike;
                         break;
-                    case eVehiclesType.track:
+                    case eVehiclesType.Track:
                         Track newTrack = new Track(i_plateNumber, i_vehicleModel);
                         m_newVehicle = newTrack;
                         break;
