@@ -98,6 +98,7 @@ namespace Ex03.ConsoleUI
             string numberOfHoursToFill = Console.ReadLine();
 
             m_myGarage.FillEnergyInVehicle(plateNumberToFillElectric, "Electric", numberOfHoursToFill);
+            Console.WriteLine("Electric fill to max successfully!");
         }
 
         private void fillGasToMax() 
@@ -112,6 +113,7 @@ namespace Ex03.ConsoleUI
             string numberOfLitersToFill = Console.ReadLine();
 
             m_myGarage.FillEnergyInVehicle(plateNumberToFillGas, gasType, numberOfLitersToFill);
+            Console.WriteLine("Gas fill to max successfully!");
         }
 
         private void fillAirToMax()
@@ -119,6 +121,7 @@ namespace Ex03.ConsoleUI
             Console.WriteLine("Please enter plate number:");
             string plateNumberToFillAir = Console.ReadLine();
             m_myGarage.FillWheelsToMax(plateNumberToFillAir);
+            Console.WriteLine("Air fill to max successfully!");
         }
 
         private void changeVehicleCondition()
@@ -129,6 +132,7 @@ namespace Ex03.ConsoleUI
             string newCondition = Console.ReadLine();
 
             m_myGarage.UpdateClientStatus(plateNumber, newCondition);
+            Console.WriteLine("Condition change successfully!");
         }
 
         private void getListOfVehiclesByFilter() 
