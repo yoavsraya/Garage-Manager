@@ -197,9 +197,12 @@ namespace Ex03.GarageLogic
             return vehicleTypes;
         }
 
-        public bool isGasType(in string i_Type)
+        public void isGasType(in string i_Type)
         {
-            return i_Type != "Electric Engine";
+            if (i_Type == "Electric Engine")
+            {
+                throw new ArgumentException("this is not a valid fuel type");
+            }
         }
     }
 }
