@@ -86,6 +86,7 @@ namespace Ex03.GarageLogic
             {
                 ClientInfo client = FindClientByPlateNumber(i_plateNumber);
                 client.clientStatus = newClientStatus;
+                updateListOfClients(client);
             }
             catch (Exception e)
             {
@@ -94,7 +95,27 @@ namespace Ex03.GarageLogic
       
         }
 
+        private void updateListOfClients(ClientInfo i_client) 
+        {
+            List<ClientInfo> tmpListOfClients = new List<ClientInfo>();
 
+            foreach(KeyValuePair<ClientInfo.eClientStatus, ClientInfo> vehicle in m_clients) 
+            {
+                if(vehicle.Key == i_client.clientStatus && vehicle.Value != i_client) 
+                {
+                    tmpListOfClients.Add(vehicle.Value);
+                }
+            }
+
+            m_clients.Remove(i_client.clientStatus);
+
+            foreach(ClientInfo client in tmpListOfClients) 
+            {
+                m_clients.Add(i_client.clientStatus, client);
+            }
+
+            m_clients.Add(i_client.clientStatus, i_client);
+        }
 
         public void FillWheelsToMax(string i_plateNumber)
         {
