@@ -43,6 +43,22 @@ namespace Ex03.GarageLogic
         {
             return "Electric Engine";
         }
+
+        public override float currentEnergy
+        {
+            get
+            {
+                return m_BatteryHoursLeft;
+            }
+            set
+            {
+                if (value > m_BatteryMaxHours)
+                {
+                    throw new ArgumentException("current battery cant be more then the max");
+                }
+                m_BatteryHoursLeft = value;
+            }
+        }
     }
             
 }

@@ -217,12 +217,13 @@ Please give us your vehicle plate number:");
             string plateNumber = Console.ReadLine();
             Console.WriteLine("Also your vehicle model:");
             string vehicleModel = Console.ReadLine();
-            Console.WriteLine("Choose your vehicle from the option below. please mind Capital Letters");
+            Console.WriteLine(@"
+Choose your vehicle from the option below. please mind Capital Letters:");
             printListOfString(m_myGarage.GetVehicleOptions());
             string vehicleType = Console.ReadLine();
             factory.createNewVehicle(plateNumber, vehicleModel, vehicleType, m_myGarage);
-            Console.WriteLine(" ");
-            Console.WriteLine("Your vehicle has been sign to our garage!");
+            Console.WriteLine(@"
+Your vehicle has been sign to our garage!");
         }
 
         private List<string> userInputForClientInfoRequirements() 
@@ -263,8 +264,8 @@ In addition we need this details about you:");
                     Console.WriteLine(", ");
                 }
             }
-            Console.WriteLine(" ");
-            Console.WriteLine(" ");
+            Console.WriteLine(@"
+");
         }
 
     }

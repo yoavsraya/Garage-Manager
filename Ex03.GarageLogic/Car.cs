@@ -78,7 +78,7 @@ namespace Ex03.GarageLogic
                 m_Wheels.UpdateWheelDetails(float.Parse(i_ListOfAnswers[((int)CurrentTierPressure)]), i_ListOfAnswers[((int)TierManufacturer)]);
                 CreateEngine(i_ListOfAnswers[((int)EngineType)]);
                 updateMaxEnergy();
-                m_Wheels.CurrentAirPressure = float.Parse(i_ListOfAnswers[(int)currentEnergy]);
+                m_MotorType.currentEnergy = float.Parse(i_ListOfAnswers[(int)currentEnergy]);
             }
             catch (Exception e)
             {
