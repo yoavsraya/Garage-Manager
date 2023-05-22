@@ -204,8 +204,24 @@ namespace Ex03.ConsoleUI
             Console.WriteLine(@"
 We need a few more details about your vehicle, please enter by order of the printing:");
             printListOfString(factory.myVehicleRequirements(m_myGarage));
-            List<string> listOfRequirementsForVehicle = userInputForVehicleRequirements();
-            List<string> listOfRequirementsForClientInfo = userInputForClientInfoRequirements();
+            List<string> listOfRequirementsForVehicle = new List<string>();
+            List<string> listOfRequirementsForClientInfo = new List<string>();
+            try 
+            {
+                listOfRequirementsForVehicle = userInputForVehicleRequirements();
+            }
+            catch(Exception e) 
+            {
+                throw e;
+            }
+            try
+            {
+                listOfRequirementsForClientInfo = userInputForClientInfoRequirements();
+            }
+            catch(Exception e) 
+            {
+                throw e;
+            }
 
             factory.createMyClientInfoCard(m_myGarage, listOfRequirementsForVehicle, listOfRequirementsForClientInfo);
         }
