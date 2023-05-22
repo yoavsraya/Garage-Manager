@@ -174,7 +174,7 @@ namespace Ex03.GarageLogic
             return energyTypes;
         }
 
-        public List<string> GetVehicleOption()
+        public List<string> GetVehicleOptions()
         {
             List<string> vehicleTypes = new List<string>();
             System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly(); 
