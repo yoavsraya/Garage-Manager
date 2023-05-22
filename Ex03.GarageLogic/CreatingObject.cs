@@ -14,7 +14,7 @@ namespace Ex03.GarageLogic
             track,
         }
 
-        public void createNewVehicle(in string i_plateNumber, in string i_vehicleModel, in string i_vehicleType, GarageManeger i_garage)
+        public void createNewVehicle(in string i_plateNumber, in string i_vehicleModel, in string i_vehicleType, in GarageManeger i_garage)
         {
             if(i_garage.isVehicleExist(i_plateNumber) == true) 
             {
