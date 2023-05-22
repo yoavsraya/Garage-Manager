@@ -46,5 +46,7 @@ namespace Ex03.GarageLogic
             m_EnergyType = i_EnergyType;
         }
 
+        
+
     }
 }

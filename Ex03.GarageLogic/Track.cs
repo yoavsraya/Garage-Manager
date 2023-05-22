@@ -99,5 +99,10 @@ namespace Ex03.GarageLogic
                 m_MotorType.maxEnergy = 135f;
             }
         }
+
+        public override string ToString()
+        {
+            return "Car";
+        }
     }
 }

@@ -157,5 +157,47 @@ namespace Ex03.GarageLogic
             m_clients.Add(newClient.clientStatus, newClient);
         }
         
+        public List<string> GetGasTypeList()
+        {
+            List<string> energyTypes = new List<string>();
+
+            foreach (MotorType.eEnergyType type in Enum.GetValues(typeof(MotorType.eEnergyType)))
+            {
+                string name = type.ToString();
+                if (name != "Electric")
+                {
+                    energyTypes.Add(name);
+                }
+            }
+            return energyTypes;
+        }
+
+        public List<string> GetVehicleOpposition()
+        {
+            List<string> vehicleTypes = new List<string>();
+            System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly(); 
+            Type[] types = assembly.GetTypes();
+            string classString;
+
+
+            foreach (Type type in types)
+            {
+                if (type.IsClass)
+                {
+                    classString = type.Name;
+                    if (classString != "GarageManeger" && classString != "ClientInfo")
+                    {
+                        vehicleTypes.Add(classString);
+                    }
+                }
+            }
+
+            return vehicleTypes;
+        }
+
+        public bool isGasType(in string i_Type)
+        {
+            return i_Type != "Electric Engine";
+        }
     }
 }
