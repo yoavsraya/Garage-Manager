@@ -14,7 +14,6 @@ namespace Ex03.ConsoleUI
         public void runGarage()
         {
             wellcoming();
-            //putVehicleInGarage();
 
             eChoiceFromMenu eChoice = eChoiceFromMenu.notChosen;
             int choice = 0;
@@ -149,7 +148,8 @@ namespace Ex03.ConsoleUI
 5. Fill vehicle gas to max from the garage.
 6. Fill vehicle electric to max from the garage.
 7. Get full details of car from the garage by plate number.
-8. If you're not interested you can leave we're won't be offended"));
+8. If you're not interested you can leave we're won't be offended
+"));
 
             int eChoice;
             while (int.TryParse(Console.ReadLine(),out eChoice) && eChoice < 1 || eChoice > Enum.GetNames(typeof(eChoiceFromMenu)).Length)
@@ -228,16 +228,18 @@ We need a few more details about your vehicle, please enter by order of the prin
 
         private void putFlatVehicleInGarage() 
         {
-            Console.WriteLine("Please give us your vehicle plate number:");
+            Console.WriteLine(@"
+Please give us your vehicle plate number:");
             string plateNumber = Console.ReadLine();
             Console.WriteLine("Also your vehicle model:");
             string vehicleModel = Console.ReadLine();
-            Console.WriteLine("Choose your vehicle from the option below. please mind Capital Letters");
+            Console.WriteLine(@"
+Choose your vehicle from the option below. please mind Capital Letters:");
             printListOfString(m_myGarage.GetVehicleOptions());
             string vehicleType = Console.ReadLine();
             factory.createNewVehicle(plateNumber, vehicleModel, vehicleType, m_myGarage);
-            Console.WriteLine(" ");
-            Console.WriteLine("Your vehicle has been sign to our garage!");
+            Console.WriteLine(@"
+Your vehicle has been sign to our garage!");
         }
 
         private List<string> userInputForClientInfoRequirements() 
@@ -278,8 +280,8 @@ In addition we need this details about you:");
                     Console.WriteLine(", ");
                 }
             }
-            Console.WriteLine(" ");
-            Console.WriteLine(" ");
+            Console.WriteLine(@"
+");
         }
 
     }

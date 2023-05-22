@@ -44,5 +44,21 @@ namespace Ex03.GarageLogic
             return "Fuel Engine";
         }
 
+        public override float currentEnergy
+        {
+            get
+            {
+                return m_CurrentGasCapacity;
+            }
+            set
+            {
+                if (value > m_MaxGasCspscity)
+                {
+                    throw new ArgumentException("current fuel cant be more then the max");
+                }
+                m_CurrentGasCapacity = value;
+            }
+        }
+
     }
 }

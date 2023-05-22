@@ -34,7 +34,7 @@ namespace Ex03.GarageLogic
             RequirementsList.Add("trunk volume"); 
             RequirementsList.Add("tier manufacturer");
             RequirementsList.Add($"Current tier pressure (max: {m_Wheels.MaxAirPressure})");
-            RequirementsList.Add("current fuel in liter"); 
+            RequirementsList.Add($"current fuel in liter (max : {135})"); 
 
             return RequirementsList;
         }
@@ -64,7 +64,7 @@ namespace Ex03.GarageLogic
                 m_Wheels.UpdateWheelDetails(float.Parse(i_ListOfAnswers[(int)CurrentTierPressure]), i_ListOfAnswers[(int)TierManufacturer]);
                 m_MotorType = new GasMotor(MotorType.eEnergyType.Soler);
                 updateMaxEnergy();
-                m_Wheels.CurrentAirPressure = float.Parse(i_ListOfAnswers[(int)currentEnergy]);
+                m_MotorType.currentEnergy = float.Parse(i_ListOfAnswers[(int)currentEnergy]);
             }
             catch(Exception e)
             {

@@ -41,6 +41,12 @@ namespace Ex03.GarageLogic
             set;
         }
 
+        public abstract float currentEnergy
+        {
+            get;
+            set;
+        }
+
         public MotorType(eEnergyType i_EnergyType)
         {
             m_EnergyType = i_EnergyType;
