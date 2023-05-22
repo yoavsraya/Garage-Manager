@@ -55,11 +55,21 @@ namespace Ex03.GarageLogic
                 throw new Exception();
             }
 
-            foreach (KeyValuePair<ClientInfo.eClientStatus, ClientInfo> vehicle in m_clients)
+            if(clientStatus == ClientInfo.eClientStatus.All)
             {
-                if (vehicle.Key == clientStatus)
+                foreach (KeyValuePair<ClientInfo.eClientStatus, ClientInfo> vehicle in m_clients)
                 {
                     filteredPlates.Add(vehicle.Value.getVehiclePlateNumber());
+                }
+            }
+            else
+            {
+                foreach (KeyValuePair<ClientInfo.eClientStatus, ClientInfo> vehicle in m_clients)
+                {
+                    if (vehicle.Key == clientStatus)
+                    {
+                        filteredPlates.Add(vehicle.Value.getVehiclePlateNumber());
+                    }
                 }
             }
 
