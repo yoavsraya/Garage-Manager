@@ -23,6 +23,11 @@ namespace Ex03.ConsoleUI
 
                 choice = getUserChoiceFromMenu();
                 eChoice = (eChoiceFromMenu)choice;
+                if (factory.isGarageEmpty() && eChoice != eChoiceFromMenu.enterNewCar)
+                {
+                    Console.WriteLine("the garage is empty!");
+                    continue;
+                }
 
                 try
                 {
@@ -53,7 +58,7 @@ namespace Ex03.ConsoleUI
                             break;
                         default:
                             eChoice = eChoiceFromMenu.notChosen;
-                            Console.WriteLine("Invalid choice... try again");
+                            Console.WriteLine("Invalid choice. try again");
                             break;
                     }
                 }
@@ -159,7 +164,7 @@ We offer in our garage these services:
             int eChoice;
             while (int.TryParse(Console.ReadLine(),out eChoice) && eChoice < 1 || eChoice > Enum.GetNames(typeof(eChoiceFromMenu)).Length)
             {
-                Console.WriteLine("Wrong input try again...");
+                Console.WriteLine("Wrong input try again.");
             }
 
             return eChoice;
@@ -169,7 +174,6 @@ We offer in our garage these services:
         {
             Console.WriteLine("Welcome to the best garage in the UNIVERSE!!");
             Console.WriteLine("If you're here you probably want to put your cars in our hands");
-            Console.WriteLine($"So first of all...{Environment.NewLine}");
         }
 
         private void putVehicleInGarage()
@@ -201,6 +205,7 @@ We offer in our garage these services:
                 {
                     Console.WriteLine(e.Message);
                 }
+                Console.WriteLine("the car was added to the garage!");
             }
         }
 

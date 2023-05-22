@@ -13,6 +13,7 @@ namespace Ex03.GarageLogic
             MotorBike,
             Track,
         }
+        private byte m_Counter = 0;
 
         public void createNewVehicle(in string i_plateNumber, in string i_vehicleModel, in string i_vehicleType, in GarageManeger i_garage)
         {
@@ -26,7 +27,7 @@ namespace Ex03.GarageLogic
                 {
                     throw new ArgumentException("this is not a possible vehicle");
                 }
-
+                m_Counter++;
                 switch (vehiclesType) 
                 {
                     case eVehiclesType.Car:
@@ -58,6 +59,11 @@ namespace Ex03.GarageLogic
         public void createMyClientInfoCard(GarageManeger garage, List<string> i_vehicleDetailsList, List<string> i_clientDetailsList) 
         {
             garage.detailsToAddClient(m_newVehicle, i_vehicleDetailsList, i_clientDetailsList);
+        }
+
+        public bool isGarageEmpty()
+        {
+            return m_Counter == 0;
         }
     }
 }
