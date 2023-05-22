@@ -14,7 +14,7 @@ namespace Ex03.ConsoleUI
         public void runGarage()
         {
             wellcoming();
-            putVehicleInGarage();
+            //putVehicleInGarage();
 
             eChoiceFromMenu eChoice = eChoiceFromMenu.notChosen;
 
