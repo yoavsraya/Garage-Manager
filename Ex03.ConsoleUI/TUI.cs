@@ -144,7 +144,8 @@ namespace Ex03.ConsoleUI
 
         private int getUserChoiceFromMenu()
         {
-            Console.WriteLine(string.Format(@"We offer in our garage these services:
+            Console.WriteLine(string.Format(@"
+We offer in our garage these services:
 1. Enter a vehicle to the garage.
 2. Get a list of the plates number of the vehicle in the garage by sort.
 3. Change vehicle condition from the garage.
