@@ -6,6 +6,7 @@ namespace Ex03.ConsoleUI
 {
     class TUI
     {
+
         private GarageManeger m_myGarage = new GarageManeger();
         private CreatingObject factory = new CreatingObject();
         const bool k_Deploy = true;
@@ -13,20 +14,7 @@ namespace Ex03.ConsoleUI
         public void runGarage()
         {
             wellcoming();
-            bool firstCarDeploy = !k_Deploy;
-
-            while(firstCarDeploy == !k_Deploy)
-            {
-                try 
-                {
-                    putVehicleInGarage();
-                    firstCarDeploy = k_Deploy;
-                }
-                catch(Exception e) 
-                {
-                    Console.WriteLine(e.Message);
-                }
-            }
+            putVehicleInGarage();
 
             eChoiceFromMenu eChoice = eChoiceFromMenu.notChosen;
 
@@ -39,7 +27,7 @@ namespace Ex03.ConsoleUI
                 {
                     switch (eChoice) 
                     {
-                        case eChoiceFromMenu.enterNewCar:
+                        case (eChoiceFromMenu)1:
                             putVehicleInGarage();
                             break;
                         case eChoiceFromMenu.getListByFilter:
@@ -179,13 +167,39 @@ namespace Ex03.ConsoleUI
 
         private void putVehicleInGarage()
         {
-            putFlatVehicleInGarage();
-            putDetailsOfFlatVehicleAndClient();
+
+            bool firstCarDeploy = !k_Deploy;
+
+            while (firstCarDeploy == !k_Deploy)
+            {
+                try
+                {
+                    putFlatVehicleInGarage();
+                    firstCarDeploy = k_Deploy;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+            }
+            firstCarDeploy = !k_Deploy;
+            while (firstCarDeploy == !k_Deploy)
+            {
+                try
+                {
+                    putDetailsOfFlatVehicleAndClient();
+                    firstCarDeploy = k_Deploy;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+            }
         }
 
         private void putDetailsOfFlatVehicleAndClient() 
         {
-            Console.WriteLine("Your vehicle has been sign to our garage... we need a few more details about your vehicle");
+            Console.WriteLine("Your vehicle has been sign to our garage... we need a few more details about your vehicle please put by order");
             printListOfString(factory.myVehicleRequirements(m_myGarage));
             List<string> listOfRequirementsForVehicle = userInputForVehicleRequirements();
             List<string> listOfRequirementsForClientInfo = userInputForClientInfoRequirements();
@@ -239,9 +253,10 @@ namespace Ex03.ConsoleUI
                 Console.Write(str);
                 if(str != list[list.Count - 1])
                 {
-                    Console.Write(", ");
+                    Console.WriteLine(", ");
                 }
             }
+            Console.WriteLine(" ");
             Console.WriteLine(" ");
         }
 
