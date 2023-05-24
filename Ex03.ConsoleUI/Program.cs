@@ -8,7 +8,7 @@ namespace Ex03.ConsoleUI
         static void Main()
         {
             TUI userInterFace = new TUI();
-            userInterFace.runGarage();
+            userInterFace.RunGarage();
         }
     }
 }

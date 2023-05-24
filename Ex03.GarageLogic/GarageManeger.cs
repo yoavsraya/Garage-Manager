@@ -163,9 +163,13 @@ namespace Ex03.GarageLogic
             return vehicleInfo;
         }
 
-        public List<string> getVehicleRequirement(Vehicle vehicle) 
+        public List<string> getVehicleRequirement(in Vehicle i_vehicle) 
         {
-            return vehicle.RequirementsList();
+            if (i_vehicle == null)
+            {
+                throw new ArgumentNullException();
+            }
+            return i_vehicle.RequirementsList();
         }
 
         public List<string> getClientRequirement() 

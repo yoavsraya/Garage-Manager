@@ -10,19 +10,19 @@ namespace Ex03.ConsoleUI
         private CreatingObject factory = new CreatingObject();
         const bool k_Deploy = true;
 
-        public void runGarage()
+        public void RunGarage()
         {
             wellcoming();
 
-            eChoiceFromMenu eChoice = eChoiceFromMenu.notChosen;
-            int choice = 0;
+            eChoiceFromMenu eChoice = eChoiceFromMenu.NotChosen;
+            int choice;
 
-            while (eChoice != eChoiceFromMenu.exit) 
+            while (eChoice != eChoiceFromMenu.Exit) 
             {
 
                 choice = getUserChoiceFromMenu();
                 eChoice = (eChoiceFromMenu)choice;
-                if (factory.IsGarageEmpty() && eChoice != eChoiceFromMenu.enterNewCar)
+                if (factory.IsGarageEmpty() && eChoice != eChoiceFromMenu.EnterNewCar)
                 {
                     Console.WriteLine("the garage is empty!");
                     continue;
@@ -32,31 +32,31 @@ namespace Ex03.ConsoleUI
                 {
                     switch (eChoice) 
                     {
-                        case eChoiceFromMenu.enterNewCar:
+                        case eChoiceFromMenu.EnterNewCar:
                             putVehicleInGarage();
                             break;
-                        case eChoiceFromMenu.getListByFilter:
+                        case eChoiceFromMenu.GetListByFilter:
                             getListOfVehiclesByFilter();
                             break;
-                        case eChoiceFromMenu.changeVehicleCondition:
+                        case eChoiceFromMenu.ChangeVehicleCondition:
                             changeVehicleCondition();
                             break;
-                        case eChoiceFromMenu.fillAirToMax:
+                        case eChoiceFromMenu.FillAirToMax:
                             fillAirToMax();
                             break;
-                        case eChoiceFromMenu.fillGasToMax:
+                        case eChoiceFromMenu.FillGasToMax:
                             fillGasToMax();
                             break;
-                        case eChoiceFromMenu.fillElectricToMax:
+                        case eChoiceFromMenu.FillElectricToMax:
                             fillElectricToMax();
                             break;
-                        case eChoiceFromMenu.getFullDetails:
+                        case eChoiceFromMenu.GetFullDetails:
                             getFullDetailsOnVehicle();
                             break;
-                        case eChoiceFromMenu.exit:
+                        case eChoiceFromMenu.Exit:
                             break;
                         default:
-                            eChoice = eChoiceFromMenu.notChosen;
+                            eChoice = eChoiceFromMenu.NotChosen;
                             Console.WriteLine("Invalid choice. try again");
                             break;
                     }
@@ -74,16 +74,15 @@ namespace Ex03.ConsoleUI
 
         public enum eChoiceFromMenu
         {
-            notChosen = 0,
-            enterNewCar = 1,
-            getListByFilter = 2,
-            changeVehicleCondition = 3,
-            fillAirToMax = 4,
-            fillGasToMax = 5,
-            fillElectricToMax = 6,
-            getFullDetails = 7,
-            exit = 8,
-
+            NotChosen = 0,
+            EnterNewCar = 1,
+            GetListByFilter = 2,
+            ChangeVehicleCondition = 3,
+            FillAirToMax = 4,
+            FillGasToMax = 5,
+            FillElectricToMax = 6,
+            GetFullDetails = 7,
+            Exit = 8,
         }
 
         private void getFullDetailsOnVehicle() 
@@ -219,7 +218,7 @@ We need a few more details about your vehicle, please enter by order of the prin
             listOfRequirementsForVehicle = userInputForVehicleRequirements();
             listOfRequirementsForClientInfo = userInputForClientInfoRequirements();
    
-            factory.createMyClientInfoCard(m_myGarage, listOfRequirementsForVehicle, listOfRequirementsForClientInfo);
+            factory.CreateMyClientInfoCard(m_myGarage, listOfRequirementsForVehicle, listOfRequirementsForClientInfo);
         }
 
         private void putFlatVehicleInGarage() 
