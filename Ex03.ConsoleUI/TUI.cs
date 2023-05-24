@@ -6,7 +6,7 @@ namespace Ex03.ConsoleUI
 {
     public class TUI
     {
-        const bool k_Deploy = true;
+        private const bool k_Deploy = true;
         private GarageManager m_myGarage = new GarageManager();
         private CreatingObject factory = new CreatingObject();
 
@@ -159,7 +159,7 @@ We offer in our garage these services:
 "));
 
             int eChoice;
-            while (int.TryParse(Console.ReadLine(),out eChoice) && eChoice < 1 || eChoice > Enum.GetNames(typeof(eChoiceFromMenu)).Length)
+            while ((int.TryParse(Console.ReadLine(), out eChoice) == false) && (eChoice < 1 || eChoice > Enum.GetNames(typeof(eChoiceFromMenu)).Length))
             {
                 Console.WriteLine("Wrong input try again.");
             }
@@ -175,7 +175,6 @@ We offer in our garage these services:
 
         private void putVehicleInGarage()
         {
-
             bool firstCarDeploy = !k_Deploy;
 
             while (firstCarDeploy == !k_Deploy)
@@ -190,7 +189,9 @@ We offer in our garage these services:
                     Console.WriteLine(e.Message);
                 }
             }
+
             firstCarDeploy = !k_Deploy;
+
             while (firstCarDeploy == !k_Deploy)
             {
                 try
@@ -251,6 +252,7 @@ In addition we need this details about you:");
 
             return listOfClientInfoFromUser;
         }
+
         private List<string> userInputForVehicleRequirements()
         {
             List<string> listOfInputsFromUser = new List<string>();
@@ -274,9 +276,9 @@ In addition we need this details about you:");
                     Console.WriteLine(", ");
                 }
             }
+
             Console.WriteLine(@"
 ");
         }
-
     }
 }
