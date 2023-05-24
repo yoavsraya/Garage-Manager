@@ -116,7 +116,16 @@ namespace Ex03.GarageLogic
                 status.Value.Remove(i_client);
             }
 
-            m_clients[i_client.clientStatus].Add(i_client);
+            if(m_clients.ContainsKey(i_client.clientStatus) == false) 
+            {
+                List<ClientInfo> listOfClientByStatus = new List<ClientInfo>();
+                listOfClientByStatus.Add(i_client);
+                m_clients.Add(i_client.clientStatus, listOfClientByStatus);
+            }
+            else 
+            {
+                m_clients[i_client.clientStatus].Add(i_client);
+            }
         }
 
         public void FillWheelsToMax(string i_plateNumber)
@@ -185,7 +194,16 @@ namespace Ex03.GarageLogic
             const int v_Name = 0, v_Number = 1;
             vehicle.BuildVehicle(i_vehicleDetailsList);
             ClientInfo newClient = new ClientInfo(i_clientDetailsList[v_Name], i_clientDetailsList[v_Number], vehicle);
-            m_clients[newClient.clientStatus].Add(newClient);
+            if(m_clients.ContainsKey(newClient.clientStatus) == false)
+            {
+                List<ClientInfo> listOfClientsByStatus = new List<ClientInfo>();
+                listOfClientsByStatus.Add(newClient);
+                m_clients.Add(newClient.clientStatus, listOfClientsByStatus);
+            }
+            else 
+            {
+                m_clients[newClient.clientStatus].Add(newClient);
+            }
         }
         
         public List<string> GetGasTypeList()
