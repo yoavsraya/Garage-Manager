@@ -15,7 +15,7 @@ namespace Ex03.GarageLogic
         }
         private byte m_Counter = 0;
 
-        public void CreateNewVehicle(in string i_plateNumber, in string i_vehicleModel, in string i_vehicleType, in GarageManeger i_garage)
+        public void CreateNewVehicle(in string i_plateNumber, in string i_vehicleModel, in string i_vehicleType, in GarageManager i_garage)
         {
             if(i_garage.isVehicleExist(i_plateNumber)) 
             {
@@ -46,17 +46,17 @@ namespace Ex03.GarageLogic
             }
         }
 
-        public List<string> MyVehicleRequirements(in GarageManeger i_garage)
+        public List<string> MyVehicleRequirements(in GarageManager i_garage)
         {
             return i_garage.getVehicleRequirement(m_newVehicle);
         }
         
-        public List<string> MyClientInfoRequirements(in GarageManeger i_garage)
+        public List<string> MyClientInfoRequirements(in GarageManager i_garage)
         {
             return i_garage.getClientRequirement();
         }
 
-        public void CreateMyClientInfoCard(in GarageManeger i_garage, List<string> i_vehicleDetailsList, List<string> i_clientDetailsList) 
+        public void CreateMyClientInfoCard(in GarageManager i_garage, List<string> i_vehicleDetailsList, List<string> i_clientDetailsList) 
         {
             i_garage.detailsToAddClient(m_newVehicle, i_vehicleDetailsList, i_clientDetailsList);
         }

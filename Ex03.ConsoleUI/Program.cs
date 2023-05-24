@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace Ex03.ConsoleUI
 {
-    class Program
+    public class Program
     {
-        static void Main()
+        public static void Main()
         {
             TUI userInterFace = new TUI();
             userInterFace.RunGarage();

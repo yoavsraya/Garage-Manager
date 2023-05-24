@@ -15,6 +15,10 @@ namespace Ex03.GarageLogic
 
         public Vehicle(in string i_LicensePlate, in string i_ModelName)
         {
+            if(i_LicensePlate.Length == 0 || i_ModelName.Length == 0) 
+            {
+                throw new ArgumentException("license plate or model name cant be empty");
+            }
             r_LicensePlate = i_LicensePlate;
             r_ModelName = i_ModelName;
         }

@@ -4,11 +4,11 @@ using Ex03.GarageLogic;
 
 namespace Ex03.ConsoleUI
 {
-    class TUI
+    public class TUI
     {
-        private GarageManeger m_myGarage = new GarageManeger();
-        private CreatingObject factory = new CreatingObject();
         const bool k_Deploy = true;
+        private GarageManager m_myGarage = new GarageManager();
+        private CreatingObject factory = new CreatingObject();
 
         public void RunGarage()
         {
@@ -19,7 +19,6 @@ namespace Ex03.ConsoleUI
 
             while (eChoice != eChoiceFromMenu.Exit) 
             {
-
                 choice = getUserChoiceFromMenu();
                 eChoice = (eChoiceFromMenu)choice;
                 if (factory.IsGarageEmpty() && eChoice != eChoiceFromMenu.EnterNewCar)

@@ -3,7 +3,7 @@ using System;
 
 namespace Ex03.GarageLogic
 {
-    public class GarageManeger
+    public class GarageManager
     {
         private Dictionary<ClientInfo.eClientStatus, List<ClientInfo>> m_clients = new Dictionary<ClientInfo.eClientStatus, List<ClientInfo>>();
         const bool k_Found = true;
@@ -16,7 +16,7 @@ namespace Ex03.GarageLogic
             {
                 foreach (ClientInfo vehicle in status.Value)
                 {
-                    if (vehicle.getVehiclePlateNumber() == i_plateNumber)
+                    if (vehicle.GetVehiclePlateNumber() == i_plateNumber)
                     {
                         found = k_Found;
                     }
@@ -35,7 +35,7 @@ namespace Ex03.GarageLogic
             {
                 foreach(ClientInfo tmpClient in status.Value) 
                 {
-                    if (i_plateNumber.Equals(tmpClient.getVehiclePlateNumber()))
+                    if (i_plateNumber.Equals(tmpClient.GetVehiclePlateNumber()))
                     {
                         found = k_Found;
                         client = tmpClient;
@@ -66,7 +66,7 @@ namespace Ex03.GarageLogic
                 {
                     foreach(ClientInfo client in status.Value) 
                     {
-                        filteredPlates.Add(client.getVehiclePlateNumber());
+                        filteredPlates.Add(client.GetVehiclePlateNumber());
                     }
                 }
             }
@@ -78,7 +78,7 @@ namespace Ex03.GarageLogic
                     {
                         foreach(ClientInfo client in status.Value) 
                         {
-                            filteredPlates.Add(client.getVehiclePlateNumber());
+                            filteredPlates.Add(client.GetVehiclePlateNumber());
                         }
 
                         break;
@@ -116,7 +116,16 @@ namespace Ex03.GarageLogic
                 status.Value.Remove(i_client);
             }
 
-            m_clients[i_client.clientStatus].Add(i_client);
+            if(m_clients.ContainsKey(i_client.clientStatus) == false) 
+            {
+                List<ClientInfo> listOfClientByStatus = new List<ClientInfo>();
+                listOfClientByStatus.Add(i_client);
+                m_clients.Add(i_client.clientStatus, listOfClientByStatus);
+            }
+            else 
+            {
+                m_clients[i_client.clientStatus].Add(i_client);
+            }
         }
 
         public void FillWheelsToMax(string i_plateNumber)
@@ -132,13 +141,13 @@ namespace Ex03.GarageLogic
             }
         }
 
-        public void FillEnergyInVehicle(in string i_plateNumber, in string i_energyType, in string i_amoutOfEnergyToFill) 
+        public void FillEnergyInVehicle(in string i_plateNumber, in string i_energyType, in string i_amountOfEnergyToFill) 
         {
            MotorType.eEnergyType energyType = (MotorType.eEnergyType)Enum.Parse(typeof(MotorType.eEnergyType), i_energyType);
             try
             {
                 ClientInfo client = FindClientByPlateNumber(i_plateNumber);
-                client.FillEnergyInVehicle(float.Parse(i_amoutOfEnergyToFill), energyType);
+                client.FillEnergyInVehicle(float.Parse(i_amountOfEnergyToFill), energyType);
             }
             catch(Exception e)
             {
@@ -153,7 +162,7 @@ namespace Ex03.GarageLogic
             try
             {
                 ClientInfo client = FindClientByPlateNumber(i_plateNumber);
-                vehicleInfo = client.getInfo();
+                vehicleInfo = client.GetInfo();
             }
             catch(Exception e)
             {
@@ -185,7 +194,16 @@ namespace Ex03.GarageLogic
             const int v_Name = 0, v_Number = 1;
             vehicle.BuildVehicle(i_vehicleDetailsList);
             ClientInfo newClient = new ClientInfo(i_clientDetailsList[v_Name], i_clientDetailsList[v_Number], vehicle);
-            m_clients[newClient.clientStatus].Add(newClient);
+            if(m_clients.ContainsKey(newClient.clientStatus) == false)
+            {
+                List<ClientInfo> listOfClientsByStatus = new List<ClientInfo>();
+                listOfClientsByStatus.Add(newClient);
+                m_clients.Add(newClient.clientStatus, listOfClientsByStatus);
+            }
+            else 
+            {
+                m_clients[newClient.clientStatus].Add(newClient);
+            }
         }
         
         public List<string> GetGasTypeList()
