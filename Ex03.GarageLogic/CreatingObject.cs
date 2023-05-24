@@ -19,7 +19,8 @@ namespace Ex03.GarageLogic
         {
             if(i_Garage.isVehicleExist(i_PlateNumber)) 
             {
-                i_Garage.UpdateClientStatus(i_PlateNumber, "inProgress");
+                i_Garage.UpdateClientStatus(i_PlateNumber, "InProgress");
+                throw new Exception("The vehicle is already in the garage! His status changed to InProgress...");
             }
             else 
             {
