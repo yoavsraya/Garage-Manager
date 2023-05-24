@@ -184,6 +184,10 @@ We offer in our garage these services:
                     putFlatVehicleInGarage();
                     firstCarDeploy = k_Deploy;
                 }
+                catch(CarExistException e) 
+                {
+
+                }
                 catch (Exception e)
                 {
                     Console.WriteLine(e.Message);
