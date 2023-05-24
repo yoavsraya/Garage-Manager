@@ -8,7 +8,7 @@ namespace Ex03.GarageLogic
         private Dictionary<ClientInfo.eClientStatus, List<ClientInfo>> m_clients = new Dictionary<ClientInfo.eClientStatus, List<ClientInfo>>();
         const bool k_Found = true;
         
-        public bool isVehicleExist(in string i_plateNumber) 
+        public bool isVehicleExist(in string i_PlateNumber) 
         {
             bool found = !k_Found;
 
@@ -16,7 +16,7 @@ namespace Ex03.GarageLogic
             {
                 foreach (ClientInfo vehicle in status.Value)
                 {
-                    if (vehicle.GetVehiclePlateNumber() == i_plateNumber)
+                    if (vehicle.GetVehiclePlateNumber() == i_PlateNumber)
                     {
                         found = k_Found;
                     }
@@ -26,7 +26,7 @@ namespace Ex03.GarageLogic
             return found;
         }
 
-        private ClientInfo FindClientByPlateNumber(in string i_plateNumber)
+        private ClientInfo FindClientByPlateNumber(in string i_PlateNumber)
         {
             ClientInfo client = null;
             bool found = !k_Found;
@@ -35,7 +35,7 @@ namespace Ex03.GarageLogic
             {
                 foreach(ClientInfo tmpClient in status.Value) 
                 {
-                    if (i_plateNumber.Equals(tmpClient.GetVehiclePlateNumber()))
+                    if (i_PlateNumber.Equals(tmpClient.GetVehiclePlateNumber()))
                     {
                         found = k_Found;
                         client = tmpClient;
@@ -51,11 +51,11 @@ namespace Ex03.GarageLogic
             return client;
         }
         
-        public List<string> ReturnListOfPlatesByFilter(in string i_condition)
+        public List<string> ReturnListOfPlatesByFilter(in string i_Condition)
         {
             List<string> filteredPlates = new List<string>();
 
-            if (Enum.TryParse(i_condition, out ClientInfo.eClientStatus clientStatus) == false)
+            if (Enum.TryParse(i_Condition, out ClientInfo.eClientStatus clientStatus) == false)
             {
                 throw new Exception("status is not valid!");
             }
@@ -89,16 +89,16 @@ namespace Ex03.GarageLogic
             return filteredPlates;
         }
 
-        public void UpdateClientStatus(in string i_plateNumber, in string i_newStatus)
+        public void UpdateClientStatus(in string i_PlateNumber, in string i_NewStatus)
         {
-            if(Enum.TryParse(i_newStatus, out ClientInfo.eClientStatus newClientStatus) == false) 
+            if(Enum.TryParse(i_NewStatus, out ClientInfo.eClientStatus newClientStatus) == false) 
             {
                 throw new ArgumentException("status is not one of the status options!");
             }
 
             try
             {
-                ClientInfo client = FindClientByPlateNumber(i_plateNumber);
+                ClientInfo client = FindClientByPlateNumber(i_PlateNumber);
                 client.clientStatus = newClientStatus;
                 updateListOfClients(client);
             }
@@ -109,30 +109,30 @@ namespace Ex03.GarageLogic
       
         }
 
-        private void updateListOfClients(ClientInfo i_client) 
+        private void updateListOfClients(ClientInfo i_Client) 
         {
             foreach(KeyValuePair<ClientInfo.eClientStatus, List<ClientInfo>> status in m_clients) 
             {
-                status.Value.Remove(i_client);
+                status.Value.Remove(i_Client);
             }
 
-            if(m_clients.ContainsKey(i_client.clientStatus) == false) 
+            if(m_clients.ContainsKey(i_Client.clientStatus) == false) 
             {
                 List<ClientInfo> listOfClientByStatus = new List<ClientInfo>();
-                listOfClientByStatus.Add(i_client);
-                m_clients.Add(i_client.clientStatus, listOfClientByStatus);
+                listOfClientByStatus.Add(i_Client);
+                m_clients.Add(i_Client.clientStatus, listOfClientByStatus);
             }
             else 
             {
-                m_clients[i_client.clientStatus].Add(i_client);
+                m_clients[i_Client.clientStatus].Add(i_Client);
             }
         }
 
-        public void FillWheelsToMax(string i_plateNumber)
+        public void FillWheelsToMax(string i_PlateNumber)
         {
             try 
             {
-                ClientInfo client = FindClientByPlateNumber(i_plateNumber);
+                ClientInfo client = FindClientByPlateNumber(i_PlateNumber);
                 client.FillWheelsAirToMax();
             }
             catch(Exception e)
@@ -141,13 +141,13 @@ namespace Ex03.GarageLogic
             }
         }
 
-        public void FillEnergyInVehicle(in string i_plateNumber, in string i_energyType, in string i_amountOfEnergyToFill) 
+        public void FillEnergyInVehicle(in string i_PlateNumber, in string i_EnergyType, in string i_AmountOfEnergyToFill) 
         {
-           MotorType.eEnergyType energyType = (MotorType.eEnergyType)Enum.Parse(typeof(MotorType.eEnergyType), i_energyType);
+           MotorType.eEnergyType energyType = (MotorType.eEnergyType)Enum.Parse(typeof(MotorType.eEnergyType), i_EnergyType);
             try
             {
-                ClientInfo client = FindClientByPlateNumber(i_plateNumber);
-                client.FillEnergyInVehicle(float.Parse(i_amountOfEnergyToFill), energyType);
+                ClientInfo client = FindClientByPlateNumber(i_PlateNumber);
+                client.FillEnergyInVehicle(float.Parse(i_AmountOfEnergyToFill), energyType);
             }
             catch(Exception e)
             {
@@ -156,12 +156,12 @@ namespace Ex03.GarageLogic
 
         }
 
-        public List<string> getVehicleInfo(in string i_plateNumber) 
+        public List<string> getVehicleInfo(in string i_PlateNumber) 
         {
             List<string> vehicleInfo;
             try
             {
-                ClientInfo client = FindClientByPlateNumber(i_plateNumber);
+                ClientInfo client = FindClientByPlateNumber(i_PlateNumber);
                 vehicleInfo = client.GetInfo();
             }
             catch(Exception e)
@@ -172,13 +172,13 @@ namespace Ex03.GarageLogic
             return vehicleInfo;
         }
 
-        public List<string> getVehicleRequirement(in Vehicle i_vehicle) 
+        public List<string> getVehicleRequirement(in Vehicle i_Vehicle) 
         {
-            if (i_vehicle == null)
+            if (i_Vehicle == null)
             {
                 throw new ArgumentNullException();
             }
-            return i_vehicle.RequirementsList();
+            return i_Vehicle.RequirementsList();
         }
 
         public List<string> getClientRequirement() 
@@ -189,11 +189,11 @@ namespace Ex03.GarageLogic
             return requirementList;
         }
 
-        public void detailsToAddClient(Vehicle vehicle, in List<string> i_vehicleDetailsList, in List<string> i_clientDetailsList)
+        public void detailsToAddClient(Vehicle i_Vehicle, in List<string> i_VehicleDetailsList, in List<string> i_ClientDetailsList)
         {
             const int v_Name = 0, v_Number = 1;
-            vehicle.BuildVehicle(i_vehicleDetailsList);
-            ClientInfo newClient = new ClientInfo(i_clientDetailsList[v_Name], i_clientDetailsList[v_Number], vehicle);
+            i_Vehicle.BuildVehicle(i_VehicleDetailsList);
+            ClientInfo newClient = new ClientInfo(i_ClientDetailsList[v_Name], i_ClientDetailsList[v_Number], i_Vehicle);
             if(m_clients.ContainsKey(newClient.clientStatus) == false)
             {
                 List<ClientInfo> listOfClientsByStatus = new List<ClientInfo>();

@@ -266,12 +266,12 @@ In addition we need this details about you:");
             return listOfInputsFromUser;
         }
 
-        private void printListOfString(List<string> list) 
+        private void printListOfString(List<string> i_List) 
         {
-            foreach (string str in list)
+            foreach (string str in i_List)
             {
                 Console.Write(str);
-                if(str != list[list.Count - 1])
+                if(str != i_List[i_List.Count - 1])
                 {
                     Console.WriteLine(", ");
                 }

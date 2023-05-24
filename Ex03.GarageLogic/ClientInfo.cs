@@ -52,11 +52,11 @@ namespace Ex03.GarageLogic
             }
         }
 
-        private string fromEnumToString(eClientStatus i_clientStatus)
+        private string fromEnumToString(eClientStatus i_ClientStatus)
         {
             string statusInString = default;
 
-            switch(i_clientStatus)
+            switch(i_ClientStatus)
             {
                 case eClientStatus.Fixed:
                     statusInString = "Fixed";
@@ -82,9 +82,9 @@ namespace Ex03.GarageLogic
             m_vehicle.FillWheelsAirToMax();
         }
 
-        public void FillEnergyInVehicle(in float i_energyToAdd, in MotorType.eEnergyType i_energyType) 
+        public void FillEnergyInVehicle(in float i_EnergyToAdd, in MotorType.eEnergyType i_EnergyType) 
         {
-            m_vehicle.ReFillVehicle(i_energyToAdd, i_energyType);
+            m_vehicle.ReFillVehicle(i_EnergyToAdd, i_EnergyType);
         }
 
         public List<string> GetInfo() 
