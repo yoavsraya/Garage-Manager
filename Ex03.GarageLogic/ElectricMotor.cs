@@ -16,7 +16,7 @@ namespace Ex03.GarageLogic
             else if (i_energy + m_BatteryHoursLeft > m_BatteryMaxHours)
             {
                 m_BatteryHoursLeft = m_BatteryMaxHours;
-                throw new ArgumentException("the energy can't be more then the max energy capacity, energy filled to maximum!");
+                throw new fillEnergyToMaxException();
             }
             else
             {

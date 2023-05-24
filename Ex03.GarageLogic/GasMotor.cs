@@ -16,7 +16,7 @@ namespace Ex03.GarageLogic
             else if (i_energy + m_CurrentGasCapacity > m_MaxGasCspscity)
             {
                 m_CurrentGasCapacity = m_MaxGasCspscity;
-                throw new ArgumentException("can't feel more then the max fuel capacity. fuel filled to maximum!");
+                throw new fillEnergyToMaxException();
             }
             else
             {
