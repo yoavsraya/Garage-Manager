@@ -5,18 +5,21 @@ namespace Ex03.GarageLogic
 {
     public class GarageManeger
     {
-        private Dictionary<ClientInfo.eClientStatus, ClientInfo> m_clients = new Dictionary<ClientInfo.eClientStatus, ClientInfo>();
+        private Dictionary<ClientInfo.eClientStatus, List<ClientInfo>> m_clients = new Dictionary<ClientInfo.eClientStatus, List<ClientInfo>>();
         const bool k_Found = true;
-
+        
         public bool isVehicleExist(in string i_plateNumber) 
         {
             bool found = !k_Found;
 
-            foreach(KeyValuePair<ClientInfo.eClientStatus, ClientInfo> vehicle in m_clients) 
+            foreach (KeyValuePair<ClientInfo.eClientStatus, List<ClientInfo>> client in m_clients)
             {
-                if(vehicle.Value.getVehiclePlateNumber() == i_plateNumber) 
+                foreach (ClientInfo vehicle in client.Value)
                 {
-                    found = k_Found;
+                    if (vehicle.getVehiclePlateNumber() == i_plateNumber)
+                    {
+                        found = k_Found;
+                    }
                 }
             }
 
@@ -28,7 +31,7 @@ namespace Ex03.GarageLogic
             ClientInfo client = null;
             bool found = !k_Found;
 
-            foreach (KeyValuePair<ClientInfo.eClientStatus, ClientInfo> vehicle in m_clients)
+            foreach (KeyValuePair<ClientInfo.eClientStatus, List <ClientInfo> vehicle in m_clients)
             {
                 if (i_plateNumber.Equals(vehicle.Value.getVehiclePlateNumber()))
                 {
@@ -176,7 +179,7 @@ namespace Ex03.GarageLogic
 
         public void detailsToAddClient(Vehicle vehicle, in List<string> i_vehicleDetailsList, in List<string> i_clientDetailsList) 
         {
-            const int v_Name = 0, v_Number = 1; 
+            const int v_Name = 0, v_Number = 1;
             vehicle.BuildVehicle(i_vehicleDetailsList);
             ClientInfo newClient = new ClientInfo(i_clientDetailsList[v_Name], i_clientDetailsList[v_Number], vehicle);
             m_clients.Add(newClient.clientStatus, newClient);

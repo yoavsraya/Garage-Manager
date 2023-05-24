@@ -6,7 +6,6 @@ namespace Ex03.ConsoleUI
 {
     class TUI
     {
-
         private GarageManeger m_myGarage = new GarageManeger();
         private CreatingObject factory = new CreatingObject();
         const bool k_Deploy = true;
@@ -33,7 +32,7 @@ namespace Ex03.ConsoleUI
                 {
                     switch (eChoice) 
                     {
-                        case (eChoiceFromMenu)1:
+                        case eChoiceFromMenu.enterNewCar:
                             putVehicleInGarage();
                             break;
                         case eChoiceFromMenu.getListByFilter:
@@ -198,43 +197,29 @@ We offer in our garage these services:
             {
                 try
                 {
-                    putDetailsOfFlatVehicleAndClient();
+                    putDetailsOfVehicleAndClient();
                     firstCarDeploy = k_Deploy;
+                    Console.WriteLine(@"
+    the car was added to the garage!");
                 }
                 catch (Exception e)
                 {
                     Console.WriteLine(e.Message);
                 }
-                Console.WriteLine(@"
-the car was added to the garage!");
             }
         }
 
-        private void putDetailsOfFlatVehicleAndClient() 
+        private void putDetailsOfVehicleAndClient() 
         {
             Console.WriteLine(@"
 We need a few more details about your vehicle, please enter by order of the printing:");
             printListOfString(factory.MyVehicleRequirements(m_myGarage));
             List<string> listOfRequirementsForVehicle = new List<string>();
             List<string> listOfRequirementsForClientInfo = new List<string>();
-            try 
-            {
-                listOfRequirementsForVehicle = userInputForVehicleRequirements();
-            }
-            catch(Exception e) 
-            {
-                throw e;
-            }
-            try
-            {
-                listOfRequirementsForClientInfo = userInputForClientInfoRequirements();
-            }
-            catch(Exception e) 
-            {
-                throw e;
-            }
-
-            factory.CreateMyClientInfoCard(m_myGarage, listOfRequirementsForVehicle, listOfRequirementsForClientInfo);
+            listOfRequirementsForVehicle = userInputForVehicleRequirements();
+            listOfRequirementsForClientInfo = userInputForClientInfoRequirements();
+   
+            factory.createMyClientInfoCard(m_myGarage, listOfRequirementsForVehicle, listOfRequirementsForClientInfo);
         }
 
         private void putFlatVehicleInGarage() 
