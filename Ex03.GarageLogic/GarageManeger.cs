@@ -5,14 +5,14 @@ namespace Ex03.GarageLogic
 {
     public class GarageManager
     {
-        private Dictionary<ClientInfo.eClientStatus, List<ClientInfo>> m_clients = new Dictionary<ClientInfo.eClientStatus, List<ClientInfo>>();
         const bool k_Found = true;
+        private readonly Dictionary<ClientInfo.eClientStatus, List<ClientInfo>> r_clients = new Dictionary<ClientInfo.eClientStatus, List<ClientInfo>>();
         
-        public bool isVehicleExist(in string i_PlateNumber) 
+        public bool IsVehicleExist(in string i_PlateNumber) 
         {
             bool found = !k_Found;
 
-            foreach (KeyValuePair<ClientInfo.eClientStatus, List<ClientInfo>> status in m_clients)
+            foreach (KeyValuePair<ClientInfo.eClientStatus, List<ClientInfo>> status in r_clients)
             {
                 foreach (ClientInfo vehicle in status.Value)
                 {
@@ -26,12 +26,12 @@ namespace Ex03.GarageLogic
             return found;
         }
 
-        private ClientInfo FindClientByPlateNumber(in string i_PlateNumber)
+        private ClientInfo findClientByPlateNumber(in string i_PlateNumber)
         {
             ClientInfo client = null;
             bool found = !k_Found;
 
-            foreach (KeyValuePair<ClientInfo.eClientStatus,List<ClientInfo>> status in m_clients)
+            foreach (KeyValuePair<ClientInfo.eClientStatus,List<ClientInfo>> status in r_clients)
             {
                 foreach(ClientInfo tmpClient in status.Value) 
                 {
@@ -55,14 +55,14 @@ namespace Ex03.GarageLogic
         {
             List<string> filteredPlates = new List<string>();
 
-            if (Enum.TryParse(i_Condition, out ClientInfo.eClientStatus clientStatus) == false)
+            if (!Enum.TryParse(i_Condition, out ClientInfo.eClientStatus clientStatus))
             {
                 throw new FormatException("status is not valid!");
             }
 
             if(clientStatus == ClientInfo.eClientStatus.All)
             {
-                foreach (KeyValuePair<ClientInfo.eClientStatus, List<ClientInfo>> status in m_clients)
+                foreach (KeyValuePair<ClientInfo.eClientStatus, List<ClientInfo>> status in r_clients)
                 {
                     foreach(ClientInfo client in status.Value) 
                     {
@@ -72,7 +72,7 @@ namespace Ex03.GarageLogic
             }
             else
             {
-                foreach (KeyValuePair<ClientInfo.eClientStatus, List<ClientInfo>> status in m_clients)
+                foreach (KeyValuePair<ClientInfo.eClientStatus, List<ClientInfo>> status in r_clients)
                 {
                     if (status.Key == clientStatus)
                     {
@@ -91,14 +91,14 @@ namespace Ex03.GarageLogic
 
         public void UpdateClientStatus(in string i_PlateNumber, in string i_NewStatus)
         {
-            if(Enum.TryParse(i_NewStatus, out ClientInfo.eClientStatus newClientStatus) == false) 
+            if(!Enum.TryParse(i_NewStatus, out ClientInfo.eClientStatus newClientStatus)) 
             {
                 throw new FormatException("status is not one of the status options!");
             }
 
             try
             {
-                ClientInfo client = FindClientByPlateNumber(i_PlateNumber);
+                ClientInfo client = findClientByPlateNumber(i_PlateNumber);
                 client.clientStatus = newClientStatus;
                 updateListOfClients(client);
             }
@@ -111,20 +111,20 @@ namespace Ex03.GarageLogic
 
         private void updateListOfClients(ClientInfo i_Client) 
         {
-            foreach(KeyValuePair<ClientInfo.eClientStatus, List<ClientInfo>> status in m_clients) 
+            foreach(KeyValuePair<ClientInfo.eClientStatus, List<ClientInfo>> status in r_clients) 
             {
                 status.Value.Remove(i_Client);
             }
 
-            if(m_clients.ContainsKey(i_Client.clientStatus) == false) 
+            if(!r_clients.ContainsKey(i_Client.clientStatus)) 
             {
                 List<ClientInfo> listOfClientByStatus = new List<ClientInfo>();
                 listOfClientByStatus.Add(i_Client);
-                m_clients.Add(i_Client.clientStatus, listOfClientByStatus);
+                r_clients.Add(i_Client.clientStatus, listOfClientByStatus);
             }
             else 
             {
-                m_clients[i_Client.clientStatus].Add(i_Client);
+                r_clients[i_Client.clientStatus].Add(i_Client);
             }
         }
 
@@ -132,7 +132,7 @@ namespace Ex03.GarageLogic
         {
             try 
             {
-                ClientInfo client = FindClientByPlateNumber(i_PlateNumber);
+                ClientInfo client = findClientByPlateNumber(i_PlateNumber);
                 client.FillWheelsAirToMax();
             }
             catch(Exception e)
@@ -147,17 +147,16 @@ namespace Ex03.GarageLogic
             {
                 throw new FormatException("energy type is not valid!");
             }
+
             try
             {
-                ClientInfo client = FindClientByPlateNumber(i_PlateNumber);
-                if (float.TryParse(i_AmountOfEnergyToFill, out float floatFuel))
+                ClientInfo client = findClientByPlateNumber(i_PlateNumber);
+                if (!float.TryParse(i_AmountOfEnergyToFill, out float floatFuel))
                 {
-                    client.FillEnergyInVehicle(floatFuel, energyType);
+                    throw new FormatException("amount of energy must be a number");
                 }
-                else
-                {
-                    throw new ArgumentException("amount of energy must be a number");
-                }
+
+                client.FillEnergyInVehicle(floatFuel, energyType);
             }
             catch(Exception e)
             {
@@ -166,12 +165,12 @@ namespace Ex03.GarageLogic
 
         }
 
-        public List<string> getVehicleInfo(in string i_PlateNumber) 
+        public List<string> GetVehicleInfo(in string i_PlateNumber) 
         {
             List<string> vehicleInfo;
             try
             {
-                ClientInfo client = FindClientByPlateNumber(i_PlateNumber);
+                ClientInfo client = findClientByPlateNumber(i_PlateNumber);
                 vehicleInfo = client.GetInfo();
             }
             catch(Exception e)
@@ -182,16 +181,17 @@ namespace Ex03.GarageLogic
             return vehicleInfo;
         }
 
-        public List<string> getVehicleRequirement(in Vehicle i_Vehicle) 
+        public List<string> GetVehicleRequirement(in Vehicle i_Vehicle) 
         {
             if (i_Vehicle == null)
             {
                 throw new ArgumentNullException();
             }
+
             return i_Vehicle.RequirementsList();
         }
 
-        public List<string> getClientRequirement() 
+        public List<string> GetClientRequirement() 
         {
             List<string> requirementList = new List<string>(2);
             requirementList.Add("Owner Name");
@@ -199,20 +199,20 @@ namespace Ex03.GarageLogic
             return requirementList;
         }
 
-        public void detailsToAddClient(Vehicle i_Vehicle, in List<string> i_VehicleDetailsList, in List<string> i_ClientDetailsList)
+        public void DetailsToAddClient(in Vehicle i_Vehicle, in List<string> i_VehicleDetailsList, in List<string> i_ClientDetailsList)
         {
             const int v_Name = 0, v_Number = 1;
             i_Vehicle.BuildVehicle(i_VehicleDetailsList);
             ClientInfo newClient = new ClientInfo(i_ClientDetailsList[v_Name], i_ClientDetailsList[v_Number], i_Vehicle);
-            if(m_clients.ContainsKey(newClient.clientStatus) == false)
+            if(!r_clients.ContainsKey(newClient.clientStatus))
             {
                 List<ClientInfo> listOfClientsByStatus = new List<ClientInfo>();
                 listOfClientsByStatus.Add(newClient);
-                m_clients.Add(newClient.clientStatus, listOfClientsByStatus);
+                r_clients.Add(newClient.clientStatus, listOfClientsByStatus);
             }
             else 
             {
-                m_clients[newClient.clientStatus].Add(newClient);
+                r_clients[newClient.clientStatus].Add(newClient);
             }
         }
         
@@ -238,7 +238,6 @@ namespace Ex03.GarageLogic
             Type[] types = assembly.GetTypes();
             string classString;
 
-
             foreach (Type type in types)
             {
                 if (type.IsClass)
@@ -254,7 +253,7 @@ namespace Ex03.GarageLogic
             return vehicleTypes;
         }
 
-        public void isGasType(in string i_Type)
+        public void IsGasType(in string i_Type)
         {
             if (i_Type == "Electric Engine")
             {

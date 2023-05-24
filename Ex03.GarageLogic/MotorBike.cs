@@ -36,14 +36,15 @@ namespace Ex03.GarageLogic
 
         public override List<string> RequirementsList()
         {
-            List<string> RequirementsList = new List<string>(m_NumOfRequirements);
-
-            RequirementsList.Add("License type (A1/A2/AA/B1)");
-            RequirementsList.Add("Engine volume"); 
-            RequirementsList.Add("Engine type (electric/fuel)"); 
-            RequirementsList.Add("Tier manufacturer");
-            RequirementsList.Add($"Current tier pressure (max: {m_Wheels.MaxAirPressure})");
-            RequirementsList.Add($"Power left (in hours for electric max: {2.6} / in liter for fuel max: {6.4})");
+            List<string> RequirementsList = new List<string>(m_NumOfRequirements)
+            {
+              "License type (A1/A2/AA/B1)",
+              "Engine volume",
+              "Engine type (electric/fuel)",
+              "Tier manufacturer",
+             $"Current tier pressure (max: {m_Wheels.MaxAirPressure})",
+             $"Power left (in hours for electric max: {2.6} / in liter for fuel max: {6.4})",
+            };
 
             return RequirementsList;
         }
@@ -55,12 +56,12 @@ namespace Ex03.GarageLogic
                 throw new ArgumentException("answer list is not having the full amount of answers");
             }
 
-            if (Enum.TryParse(i_ListOfAnswers[((int)LicenseType)], out m_LicenseType) == !k_Valid)
+            if (!Enum.TryParse(i_ListOfAnswers[(int)LicenseType], out m_LicenseType))
             {
                 throw new FormatException("license type is not valid!");
             }
 
-            if (int.TryParse(i_ListOfAnswers[((int)EngineVolume)], out m_MotorVolume) == !k_Valid)
+            if (!int.TryParse(i_ListOfAnswers[(int)EngineVolume], out m_MotorVolume))
             {
                 throw new FormatException("Engine volume must be number!");
             }
@@ -71,14 +72,16 @@ namespace Ex03.GarageLogic
                 {
                     throw new FormatException("tier pressure must be a number");
                 }
+
                 m_Wheels.UpdateWheelDetails(currTierPressure, i_ListOfAnswers[(int)TierManufacturer]);
-                CreateEngine(i_ListOfAnswers[((int)EngineType)]);
+                CreateEngine(i_ListOfAnswers[(int)EngineType]);
 
                 if(!float.TryParse(i_ListOfAnswers[(int)currentEnergy], out float currEnergy))
                 {
                     throw new FormatException("energy must be a number");
                 }
-                updateEnergyDetails(currEnergy);
+
+                UpdateEnergyDetails(currEnergy);
 
             }
             catch(Exception e)
@@ -97,7 +100,7 @@ namespace Ex03.GarageLogic
             return details;
         }
 
-        protected override void updateEnergyDetails(in float i_currentEnergy)
+        protected override void UpdateEnergyDetails(in float i_currentEnergy)
         {
             if (m_MotorType == null)
             {
@@ -106,16 +109,21 @@ namespace Ex03.GarageLogic
 
             else if(m_MotorType is GasMotor)
             {
-                m_MotorType.maxEnergy = 6.4f;
+                m_MotorType.MaxEnergy = 6.4f;
             }
             else // is electric
             {
-                m_MotorType.maxEnergy = 2.6f;
+                m_MotorType.MaxEnergy = 2.6f;
             }
 
-            m_MotorType.currentEnergy = i_currentEnergy;
-            EnergyMeterPercent = m_MotorType.calculateMeterPercent();
+            m_MotorType.CurrentEnergy = i_currentEnergy;
+            EnergyMeterPercent = m_MotorType.CalculateMeterPercent();
 
+        }
+
+        protected override void UpdateFuelType()
+        {
+            m_MotorType.EnergyType = MotorType.eEnergyType.Octan98;
         }
     }
 }

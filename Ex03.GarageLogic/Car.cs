@@ -6,17 +6,17 @@ namespace Ex03.GarageLogic
 {
     class Car : Vehicle
     {
-        public enum eNumOfDoors
+        private enum eNumOfDoors
         {
-            Two =2,
+            Two = 2,
             Three,
             Four,
             Five,
         }
 
-        public enum eCarColor
+        private enum eCarColor
         {
-            Black,
+            Black = 0,
             White,
             Yellow,
             Red,
@@ -32,8 +32,8 @@ namespace Ex03.GarageLogic
             currentEnergy,
         }
 
-        private  eNumOfDoors m_numOfDoors;
-        private  eCarColor m_CarColor;
+        private eNumOfDoors m_NumOfDoors;
+        private eCarColor m_CarColor;
 
         public Car(in string i_LicensePlate, in string i_ModelName)
             : base(i_LicensePlate, i_ModelName)
@@ -44,14 +44,15 @@ namespace Ex03.GarageLogic
 
         public override List<string> RequirementsList()
         {
-            List<string> RequirementsList = new List<string>(m_NumOfRequirements);
-            RequirementsList.Add("Number of doors (2-5)"); 
-            RequirementsList.Add("Car color (Black ,White, Yellow, Red)");
-            RequirementsList.Add("Engine type (electric, fuel)");
-            RequirementsList.Add("Tier manufacturer");
-            RequirementsList.Add($"Current tier pressure (max : {m_Wheels.MaxAirPressure})");
-            RequirementsList.Add($"Power left (in hours for electric max: {5.2} / in liter for fuel max: {46})"); 
-            
+            List<string> RequirementsList = new List<string>(m_NumOfRequirements)
+            {
+                "Number of doors (2-5)",
+                "Car color (Black ,White, Yellow, Red)",
+                "Engine type (electric, fuel)",
+                "Tier manufacturer",
+                $"Current tier pressure (max : {m_Wheels.MaxAirPressure})",
+                $"Power left (in hours for electric max: {5.2} / in liter for fuel max: {46})"
+            };
 
             return RequirementsList;
         }
@@ -63,12 +64,14 @@ namespace Ex03.GarageLogic
                 throw new ArgumentException("answer list is not having the full amount of answers");
             }
 
-            if (Enum.TryParse(i_ListOfAnswers[((int)NumOfDoors)], out m_numOfDoors) != k_Valid)
+            if (!Enum.IsDefined(typeof(eNumOfDoors), int.Parse(i_ListOfAnswers[((int)NumOfDoors)])))
             {
-                throw new ValueOutOfRangeException("number of doors must be between 2-5");
+                throw new ValueOutOfRangeException(2, 5, "num of doors");
             }
 
-            if(Enum.TryParse(i_ListOfAnswers[((int)CarColor)], out m_CarColor) != k_Valid)
+            m_NumOfDoors = (eNumOfDoors)Enum.Parse(typeof(eNumOfDoors),i_ListOfAnswers[((int)NumOfDoors)]);
+
+            if (!Enum.TryParse(i_ListOfAnswers[((int)CarColor)], out m_CarColor))
             {
                 throw new FormatException("the color is not valid");
             }
@@ -86,7 +89,7 @@ namespace Ex03.GarageLogic
                 {
                     throw new FormatException("energy must be a number");
                 }
-                updateEnergyDetails(currEnergy);
+                UpdateEnergyDetails(currEnergy);
             }
             catch (Exception e)
             {
@@ -97,13 +100,13 @@ namespace Ex03.GarageLogic
         public override List<string> VehicleDetails()
         {
             List<string> details = base.VehicleDetails();
-            details.Add(string.Format("number of doors: {0}", m_numOfDoors));
+            details.Add(string.Format("number of doors: {0}", m_NumOfDoors));
             details.Add(string.Format("The car color: {0}", m_CarColor));
 
             return details;
         }
 
-        protected override void updateEnergyDetails(in float i_currentEnergy)
+        protected override void UpdateEnergyDetails(in float i_currentEnergy)
         {
             if (m_MotorType == null)
             {
@@ -112,16 +115,20 @@ namespace Ex03.GarageLogic
 
             else if (m_MotorType is GasMotor)
             {
-                m_MotorType.maxEnergy = 46f;
+                m_MotorType.MaxEnergy = 46f;
             }
             else // is electric
             {
-                m_MotorType.maxEnergy = 5.2f;
+                m_MotorType.MaxEnergy = 5.2f;
             }
 
-            m_MotorType.currentEnergy = i_currentEnergy;
-            EnergyMeterPercent = m_MotorType.calculateMeterPercent();
+            m_MotorType.CurrentEnergy = i_currentEnergy;
+            EnergyMeterPercent = m_MotorType.CalculateMeterPercent();
         }
 
+        protected override void UpdateFuelType()
+        {
+            m_MotorType.EnergyType = MotorType.eEnergyType.Octan95;
+        }
     }
 }

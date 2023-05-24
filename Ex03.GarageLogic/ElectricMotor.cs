@@ -7,20 +7,24 @@ namespace Ex03.GarageLogic
         private float m_BatteryHoursLeft = 0;
         private float m_BatteryMaxHours = 0;
 
-        public override void ReFill(in float i_energy, in eEnergyType i_energyType)
+        public ElectricMotor()
         {
+            EnergyType = eEnergyType.Electric;
+        }
 
-            if (i_energyType != EnergyType)
+        public override void ReFill(in float i_Energy, in eEnergyType i_EnergyType)
+        {
+            if (i_EnergyType != EnergyType)
             {
                 throw new ArgumentException("this car can get only energy");
             }
             else
             {
-                m_BatteryHoursLeft += i_energy;
+                CurrentEnergy += i_Energy;
             }
         }
 
-        public override float maxEnergy
+        public override float MaxEnergy
         {
             get
             {
@@ -32,15 +36,12 @@ namespace Ex03.GarageLogic
             }
         }
 
-        public ElectricMotor(eEnergyType i_EnergyType) : base(i_EnergyType)
-        {}
-
         public override string ToString()
         {
             return "Electric Engine";
         }
 
-        public override float currentEnergy
+        public override float CurrentEnergy
         {
             get
             {
@@ -48,10 +49,11 @@ namespace Ex03.GarageLogic
             }
             set
             {
-                if (value > m_BatteryMaxHours)
+                if (value > m_BatteryMaxHours || value < 0)
                 {
-                    throw new ValueOutOfRangeException("energy value is  out of range");
+                    throw new ValueOutOfRangeException(0, m_BatteryMaxHours, "battery capacity");
                 }
+
                 m_BatteryHoursLeft = value;
             }
         }

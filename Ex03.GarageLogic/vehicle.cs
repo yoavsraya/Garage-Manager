@@ -44,7 +44,6 @@ namespace Ex03.GarageLogic
             }
         }
 
-
         public void ReFillVehicle(in float i_NewCurrentEnergy, in MotorType.eEnergyType i_EnergyType)
         {
             if(m_MotorType == null)
@@ -55,7 +54,7 @@ namespace Ex03.GarageLogic
             {
 
                 m_MotorType.ReFill(i_NewCurrentEnergy, i_EnergyType);
-                m_EnergyMeterPercent = m_MotorType.calculateMeterPercent();
+                m_EnergyMeterPercent = m_MotorType.CalculateMeterPercent();
             }
         }
 
@@ -65,17 +64,8 @@ namespace Ex03.GarageLogic
             {
                 throw new NullReferenceException("wheels details has not entered yet");
             }
+
             m_Wheels.CurrentAirPressure = m_Wheels.MaxAirPressure;
-        }
-
-        public void FillWheelsAir(in float i_pressure)
-        {
-            if (m_Wheels == null)
-            {
-                throw new ArgumentNullException("wheels details has not created yet!");
-            }
-
-            m_Wheels.FillAirWheel(i_pressure);
         }
 
         public abstract List<string> RequirementsList();
@@ -86,16 +76,18 @@ namespace Ex03.GarageLogic
         {
             if (i_EngineType.ToLower() == "electric")
             {
-                m_MotorType = new ElectricMotor(MotorType.eEnergyType.Electric);
+                m_MotorType = new ElectricMotor();
             }
             else if (i_EngineType.ToLower() == "fuel")
             {
-                m_MotorType = new GasMotor(MotorType.eEnergyType.Octan98);
+                m_MotorType = new GasMotor();
+                UpdateFuelType();
             }
             else
             {
                 throw new ArgumentException("engine type must be electric/fuel only!");
             }
+
         }
 
         public virtual List<string> VehicleDetails()
@@ -122,6 +114,8 @@ namespace Ex03.GarageLogic
             return details;
         }
 
-        protected abstract void updateEnergyDetails(in float i_currentEnergy);
+        protected abstract void UpdateEnergyDetails(in float i_currentEnergy);
+
+        protected abstract void UpdateFuelType();
     }
 }

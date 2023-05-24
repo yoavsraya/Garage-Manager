@@ -4,6 +4,8 @@ namespace Ex03.GarageLogic
 {
     public abstract class MotorType
     {
+        private eEnergyType m_EnergyType;
+
         public enum eEnergyType
         {
             Soler = 0,
@@ -12,6 +14,7 @@ namespace Ex03.GarageLogic
             Octan98,
             Electric,
         }
+
         public eEnergyType EnergyType
         {
             get
@@ -20,44 +23,32 @@ namespace Ex03.GarageLogic
             }
             set
             {
-                if(Enum.IsDefined(typeof(eEnergyType), value))
+                if(!Enum.IsDefined(typeof(eEnergyType), value))
                 {
-                    m_EnergyType = value;
+                    throw new FormatException("Energy type is not valid");
                 }
-                else
-                {
-                    throw new AggregateException();
-                }
+
+                m_EnergyType = value;
             }
         }
 
-        private eEnergyType m_EnergyType;
+        public abstract void ReFill(in float i_Energy, in eEnergyType i_EnergyType);
 
-        public abstract void ReFill(in float i_energy, in eEnergyType i_energyType);
-
-        public abstract float maxEnergy
+        public abstract float MaxEnergy
         {
             get;
             set;
         }
 
-        public abstract float currentEnergy
+        public abstract float CurrentEnergy
         {
             get;
             set;
         }
 
-        public MotorType(eEnergyType i_EnergyType)
+        public float CalculateMeterPercent()
         {
-            m_EnergyType = i_EnergyType;
+            return CurrentEnergy / MaxEnergy;
         }
-
-        public float calculateMeterPercent()
-        {
-            return currentEnergy / maxEnergy;
-        }
-
-        
-
     }
 }

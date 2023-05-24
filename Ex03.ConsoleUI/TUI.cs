@@ -7,12 +7,12 @@ namespace Ex03.ConsoleUI
     public class TUI
     {
         private const bool k_Deploy = true;
-        private GarageManager m_myGarage = new GarageManager();
-        private CreatingObject factory = new CreatingObject();
+        private readonly GarageManager r_MyGarage = new GarageManager();
+        private readonly CreatingObject r_Factory = new CreatingObject();
 
         public void RunGarage()
         {
-            wellcoming();
+            welcoming(); 
 
             eChoiceFromMenu eChoice = eChoiceFromMenu.NotChosen;
             int choice;
@@ -21,7 +21,7 @@ namespace Ex03.ConsoleUI
             {
                 choice = getUserChoiceFromMenu();
                 eChoice = (eChoiceFromMenu)choice;
-                if (factory.IsGarageEmpty() && eChoice != eChoiceFromMenu.EnterNewCar)
+                if (r_Factory.IsGarageEmpty() && eChoice != eChoiceFromMenu.EnterNewCar)
                 {
                     Console.WriteLine("the garage is empty!");
                     continue;
@@ -88,7 +88,7 @@ namespace Ex03.ConsoleUI
         {
             Console.WriteLine("Please enter plate number:");
             string plateNumberToGetDetails = Console.ReadLine();
-            printListOfString(m_myGarage.getVehicleInfo(plateNumberToGetDetails));
+            printListOfString(r_MyGarage.GetVehicleInfo(plateNumberToGetDetails));
         }
 
         private void fillElectric()
@@ -99,7 +99,7 @@ namespace Ex03.ConsoleUI
             Console.WriteLine("Please enter number of hours to fill:");
             string numberOfHoursToFill = Console.ReadLine();
 
-            m_myGarage.FillEnergyInVehicle(plateNumberToFillElectric, "Electric", numberOfHoursToFill);
+            r_MyGarage.FillEnergyInVehicle(plateNumberToFillElectric, "Electric", numberOfHoursToFill);
             Console.WriteLine("Electric fill successfully!");
         }
 
@@ -108,13 +108,13 @@ namespace Ex03.ConsoleUI
             Console.WriteLine("Please enter plate number:");
             string plateNumberToFillGas = Console.ReadLine();
             Console.WriteLine("Please enter gas type from the option below:");
-            printListOfString(m_myGarage.GetGasTypeList());
+            printListOfString(r_MyGarage.GetGasTypeList());
             string gasType = Console.ReadLine();
-            m_myGarage.isGasType(gasType);
+            r_MyGarage.IsGasType(gasType);
             Console.WriteLine("Please enter number of liters to fill:");
             string numberOfLitersToFill = Console.ReadLine();
 
-            m_myGarage.FillEnergyInVehicle(plateNumberToFillGas, gasType, numberOfLitersToFill);
+            r_MyGarage.FillEnergyInVehicle(plateNumberToFillGas, gasType, numberOfLitersToFill);
             Console.WriteLine("Gas fill successfully!");
         }
 
@@ -122,7 +122,7 @@ namespace Ex03.ConsoleUI
         {
             Console.WriteLine("Please enter plate number:");
             string plateNumberToFillAir = Console.ReadLine();
-            m_myGarage.FillWheelsToMax(plateNumberToFillAir);
+            r_MyGarage.FillWheelsToMax(plateNumberToFillAir);
             Console.WriteLine("Air fill to max successfully!");
         }
 
@@ -133,7 +133,7 @@ namespace Ex03.ConsoleUI
             Console.WriteLine("Please enter the new condition you wish(Paid, InProgress, Fixed)");
             string newCondition = Console.ReadLine();
 
-            m_myGarage.UpdateClientStatus(plateNumber, newCondition);
+            r_MyGarage.UpdateClientStatus(plateNumber, newCondition);
             Console.WriteLine("Condition change successfully!");
         }
 
@@ -141,7 +141,7 @@ namespace Ex03.ConsoleUI
         {
             Console.WriteLine("Please enter the condition of vehicles you want the list to include, the option are: All, Paid, InProgress, Fixed.");
             string condition = Console.ReadLine();
-            printListOfString(m_myGarage.ReturnListOfPlatesByFilter(condition));
+            printListOfString(r_MyGarage.ReturnListOfPlatesByFilter(condition));
         }
 
         private int getUserChoiceFromMenu()
@@ -159,7 +159,7 @@ We offer in our garage these services:
 "));
 
             int eChoice;
-            while ((int.TryParse(Console.ReadLine(), out eChoice) == false) && (eChoice < 1 || eChoice > Enum.GetNames(typeof(eChoiceFromMenu)).Length))
+            while (!int.TryParse(Console.ReadLine(), out eChoice) && (eChoice < 1 || eChoice > Enum.GetNames(typeof(eChoiceFromMenu)).Length))
             {
                 Console.WriteLine("Wrong input try again.");
             }
@@ -167,7 +167,7 @@ We offer in our garage these services:
             return eChoice;
         }
 
-        private void wellcoming() 
+        private void welcoming() 
         {
             Console.WriteLine("Welcome to the best garage in the UNIVERSE!!");
             Console.WriteLine("If you're here you probably want to put your cars in our hands");
@@ -216,13 +216,12 @@ We offer in our garage these services:
         {
             Console.WriteLine(@"
 We need a few more details about your vehicle, please enter by order of the printing:");
-            printListOfString(factory.MyVehicleRequirements(m_myGarage));
-            List<string> listOfRequirementsForVehicle = new List<string>();
-            List<string> listOfRequirementsForClientInfo = new List<string>();
-            listOfRequirementsForVehicle = userInputForVehicleRequirements();
-            listOfRequirementsForClientInfo = userInputForClientInfoRequirements();
+            printListOfString(r_Factory.MyVehicleRequirements(r_MyGarage));
+
+            List<string> listOfRequirementsForVehicle = userInputForVehicleRequirements();
+            List<string> listOfRequirementsForClientInfo = userInputForClientInfoRequirements();
    
-            factory.CreateMyClientInfoCard(m_myGarage, listOfRequirementsForVehicle, listOfRequirementsForClientInfo);
+            r_Factory.CreateMyClientInfoCard(r_MyGarage, listOfRequirementsForVehicle, listOfRequirementsForClientInfo);
         }
 
         private void putFlatVehicleInGarage() 
@@ -234,9 +233,9 @@ Please give us your vehicle plate number:");
             string vehicleModel = Console.ReadLine();
             Console.WriteLine(@"
 Choose your vehicle from the option below. please mind Capital Letters:");
-            printListOfString(m_myGarage.GetVehicleOptions());
+            printListOfString(r_MyGarage.GetVehicleOptions());
             string vehicleType = Console.ReadLine();
-            factory.CreateNewVehicle(plateNumber, vehicleModel, vehicleType, m_myGarage);
+            r_Factory.CreateNewVehicle(plateNumber, vehicleModel, vehicleType, r_MyGarage);
             Console.WriteLine(@"
 Your vehicle has been sign to our garage!");
         }
@@ -246,10 +245,10 @@ Your vehicle has been sign to our garage!");
             List<string> listOfClientInfoFromUser = new List<string>();
             Console.WriteLine(@"
 In addition we need this details about you:");
-            printListOfString(factory.MyClientInfoRequirements(m_myGarage));
+            printListOfString(r_Factory.MyClientInfoRequirements(r_MyGarage));
             Console.WriteLine("Please enter the details in the same order printed");
 
-            for(int i = 0; i < factory.MyClientInfoRequirements(m_myGarage).Count; i++)
+            for(int i = 0; i < r_Factory.MyClientInfoRequirements(r_MyGarage).Count; i++)
             {
                 listOfClientInfoFromUser.Add(Console.ReadLine());
             }
@@ -262,7 +261,7 @@ In addition we need this details about you:");
             List<string> listOfInputsFromUser = new List<string>();
             Console.WriteLine("Please Enter the details in the same order as we ask for them!");
 
-            for(int i = 0; i < factory.MyVehicleRequirements(m_myGarage).Count; i++) 
+            for(int i = 0; i < r_Factory.MyVehicleRequirements(r_MyGarage).Count; i++) 
             {
                 listOfInputsFromUser.Add(Console.ReadLine());
             }

@@ -15,11 +15,11 @@ namespace Ex03.GarageLogic
             }
             else
             {
-                m_CurrentGasCapacity += i_energy;
+                CurrentEnergy += i_energy;
             }
         }
 
-        public override float maxEnergy
+        public override float MaxEnergy
         {
             get
             {
@@ -31,15 +31,12 @@ namespace Ex03.GarageLogic
             }
         }
 
-        public GasMotor(eEnergyType i_EnergyType) : base(i_EnergyType)
-        {}
-
         public override string ToString()
         {
             return "Fuel Engine";
         }
 
-        public override float currentEnergy
+        public override float CurrentEnergy
         {
             get
             {
@@ -47,13 +44,12 @@ namespace Ex03.GarageLogic
             }
             set
             {
-                if (value > m_MaxGasCspscity)
+                if (value > m_MaxGasCspscity || value < 0)
                 {
-                    throw new ValueOutOfRangeException("fuel value is out of range");
+                    throw new ValueOutOfRangeException(0, m_MaxGasCspscity, "fuel capacity");
                 }
                 m_CurrentGasCapacity = value;
             }
         }
-
     }
 }

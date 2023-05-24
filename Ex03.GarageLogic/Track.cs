@@ -28,13 +28,14 @@ namespace Ex03.GarageLogic
 
         public override List<string> RequirementsList()
         {
-            List<string> RequirementsList = new List<string>(m_NumOfRequirements);
-
-            RequirementsList.Add("hold toxic cargo (yes, no)"); 
-            RequirementsList.Add("trunk volume"); 
-            RequirementsList.Add("tier manufacturer");
-            RequirementsList.Add($"Current tier pressure (max: {m_Wheels.MaxAirPressure})");
-            RequirementsList.Add($"current fuel in liter (max : {135})"); 
+            List<string> RequirementsList = new List<string>(m_NumOfRequirements)
+            {
+                "hold toxic cargo (yes, no)",
+                "trunk volume",
+                "tier manufacturer",
+                $"Current tier pressure (max: {m_Wheels.MaxAirPressure})",
+                $"current fuel in liter (max : {135})"
+            };
 
             return RequirementsList;
         }
@@ -54,7 +55,7 @@ namespace Ex03.GarageLogic
                 throw new AggregateException("trunk toxic need to answer only by yes/no");
             }
 
-            if (float.TryParse(i_ListOfAnswers[((int)TrunkValume)], out m_TrunkVolume) != k_Valid)
+            if (!float.TryParse(i_ListOfAnswers[(int)TrunkValume], out m_TrunkVolume))
             {
                 throw new FormatException("trunk volume is not valid");
             }
@@ -65,21 +66,23 @@ namespace Ex03.GarageLogic
                 {
                     throw new FormatException("tier pressure must be a number");
                 }
+
                 m_Wheels.UpdateWheelDetails(currTierPressure, i_ListOfAnswers[(int)TierManufacturer]);
             
                 if (!float.TryParse(i_ListOfAnswers[(int)currentEnergy], out float currEnergy))
                 {
                     throw new FormatException("energy must be a number");
                 }
-                m_MotorType = new GasMotor(MotorType.eEnergyType.Soler);
-                updateEnergyDetails(currEnergy);
+
+                m_MotorType = new GasMotor();
+                UpdateFuelType();
+                UpdateEnergyDetails(currEnergy);
             }
             catch(Exception e)
             {
                 throw e;
             }
 
-      
         }
 
         public override List<string> VehicleDetails()
@@ -99,7 +102,7 @@ namespace Ex03.GarageLogic
             return details;
         }
 
-        protected override void updateEnergyDetails(in float i_currentEnergy)
+        protected override void UpdateEnergyDetails(in float i_currentEnergy)
         {
             if (m_MotorType == null)
             {
@@ -107,12 +110,16 @@ namespace Ex03.GarageLogic
             }
             else
             {
-                m_MotorType.maxEnergy = 135f;
-                m_MotorType.currentEnergy = i_currentEnergy;
-                EnergyMeterPercent = m_MotorType.calculateMeterPercent();
+                m_MotorType.MaxEnergy = 135f;
+                m_MotorType.CurrentEnergy = i_currentEnergy;
+                EnergyMeterPercent = m_MotorType.CalculateMeterPercent();
             }
         }
 
-    
+        protected override void UpdateFuelType()
+        {
+            m_MotorType.EnergyType = MotorType.eEnergyType.Soler;
+        }
+
     }
 }
