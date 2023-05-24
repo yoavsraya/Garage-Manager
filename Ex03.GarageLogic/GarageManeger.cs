@@ -12,9 +12,9 @@ namespace Ex03.GarageLogic
         {
             bool found = !k_Found;
 
-            foreach (KeyValuePair<ClientInfo.eClientStatus, List<ClientInfo>> client in m_clients)
+            foreach (KeyValuePair<ClientInfo.eClientStatus, List<ClientInfo>> status in m_clients)
             {
-                foreach (ClientInfo vehicle in client.Value)
+                foreach (ClientInfo vehicle in status.Value)
                 {
                     if (vehicle.getVehiclePlateNumber() == i_plateNumber)
                     {
@@ -31,13 +31,16 @@ namespace Ex03.GarageLogic
             ClientInfo client = null;
             bool found = !k_Found;
 
-            foreach (KeyValuePair<ClientInfo.eClientStatus, List <ClientInfo> vehicle in m_clients)
+            foreach (KeyValuePair<ClientInfo.eClientStatus,List<ClientInfo>> status in m_clients)
             {
-                if (i_plateNumber.Equals(vehicle.Value.getVehiclePlateNumber()))
+                foreach(ClientInfo tmpClient in status.Value) 
                 {
-                    found = k_Found;
-                    client = vehicle.Value;
-                    break;
+                    if (i_plateNumber.Equals(tmpClient.getVehiclePlateNumber()))
+                    {
+                        found = k_Found;
+                        client = tmpClient;
+                        break;
+                    }
                 }
             }
 
@@ -59,18 +62,26 @@ namespace Ex03.GarageLogic
 
             if(clientStatus == ClientInfo.eClientStatus.All)
             {
-                foreach (KeyValuePair<ClientInfo.eClientStatus, ClientInfo> vehicle in m_clients)
+                foreach (KeyValuePair<ClientInfo.eClientStatus, List<ClientInfo>> status in m_clients)
                 {
-                    filteredPlates.Add(vehicle.Value.getVehiclePlateNumber());
+                    foreach(ClientInfo client in status.Value) 
+                    {
+                        filteredPlates.Add(client.getVehiclePlateNumber());
+                    }
                 }
             }
             else
             {
-                foreach (KeyValuePair<ClientInfo.eClientStatus, ClientInfo> vehicle in m_clients)
+                foreach (KeyValuePair<ClientInfo.eClientStatus, List<ClientInfo>> status in m_clients)
                 {
-                    if (vehicle.Key == clientStatus)
+                    if (status.Key == clientStatus)
                     {
-                        filteredPlates.Add(vehicle.Value.getVehiclePlateNumber());
+                        foreach(ClientInfo client in status.Value) 
+                        {
+                            filteredPlates.Add(client.getVehiclePlateNumber());
+                        }
+
+                        break;
                     }
                 }
             }
@@ -100,24 +111,12 @@ namespace Ex03.GarageLogic
 
         private void updateListOfClients(ClientInfo i_client) 
         {
-            List<ClientInfo> tmpListOfClients = new List<ClientInfo>();
-
-            foreach(KeyValuePair<ClientInfo.eClientStatus, ClientInfo> vehicle in m_clients) 
+            foreach(KeyValuePair<ClientInfo.eClientStatus, List<ClientInfo>> status in m_clients) 
             {
-                if(vehicle.Key == i_client.clientStatus && vehicle.Value != i_client) 
-                {
-                    tmpListOfClients.Add(vehicle.Value);
-                }
+                status.Value.Remove(i_client);
             }
 
-            m_clients.Remove(i_client.clientStatus);
-
-            foreach(ClientInfo client in tmpListOfClients) 
-            {
-                m_clients.Add(i_client.clientStatus, client);
-            }
-
-            m_clients.Add(i_client.clientStatus, i_client);
+            m_clients[i_client.clientStatus].Add(i_client);
         }
 
         public void FillWheelsToMax(string i_plateNumber)
@@ -177,12 +176,12 @@ namespace Ex03.GarageLogic
             return requirementList;
         }
 
-        public void detailsToAddClient(Vehicle vehicle, in List<string> i_vehicleDetailsList, in List<string> i_clientDetailsList) 
+        public void detailsToAddClient(Vehicle vehicle, in List<string> i_vehicleDetailsList, in List<string> i_clientDetailsList)
         {
             const int v_Name = 0, v_Number = 1;
             vehicle.BuildVehicle(i_vehicleDetailsList);
             ClientInfo newClient = new ClientInfo(i_clientDetailsList[v_Name], i_clientDetailsList[v_Number], vehicle);
-            m_clients.Add(newClient.clientStatus, newClient);
+            m_clients[newClient.clientStatus].Add(newClient);
         }
         
         public List<string> GetGasTypeList()
