@@ -46,6 +46,7 @@
     <Compile Include="MotorBike.cs" />
     <Compile Include="MotorType.cs" />
     <Compile Include="Track.cs" />
+    <Compile Include="ValueOutOfRangeException.cs" />
     <Compile Include="Vehicle.cs" />
     <Compile Include="Wheels.cs" />
   </ItemGroup>
