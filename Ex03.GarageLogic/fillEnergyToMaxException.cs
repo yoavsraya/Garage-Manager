@@ -5,8 +5,8 @@ using System.Text;
 
 namespace Ex03.GarageLogic
 {
-    class fillEnergyToMaxException : Exception
-    {
+   public class fillEnergyToMaxException : Exception
+   {
         public override string Message
         {
             get
@@ -14,5 +14,5 @@ namespace Ex03.GarageLogic
                 return "can't feel more then the max fuel capacity. fuel filled to maximum!";
             }
         }
-    }
+   }
 }
