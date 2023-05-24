@@ -57,7 +57,7 @@ namespace Ex03.GarageLogic
 
             if (Enum.TryParse(i_condition, out ClientInfo.eClientStatus clientStatus) == false)
             {
-                throw new Exception();
+                throw new Exception("status is not valid!");
             }
 
             if(clientStatus == ClientInfo.eClientStatus.All)
