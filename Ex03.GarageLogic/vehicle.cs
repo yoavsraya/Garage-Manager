@@ -50,7 +50,7 @@ namespace Ex03.GarageLogic
             else
             {
                 m_MotorType.ReFill(i_NewCurrentEnergy, i_EnergyType);
-                m_EnergyMeterPercent = i_NewCurrentEnergy / m_MotorType.maxEnergy;
+                m_EnergyMeterPercent = m_MotorType.calculateMeterPercent();
             }
         }
 
