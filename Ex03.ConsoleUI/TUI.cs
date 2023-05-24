@@ -22,7 +22,7 @@ namespace Ex03.ConsoleUI
 
                 choice = getUserChoiceFromMenu();
                 eChoice = (eChoiceFromMenu)choice;
-                if (factory.isGarageEmpty() && eChoice != eChoiceFromMenu.enterNewCar)
+                if (factory.IsGarageEmpty() && eChoice != eChoiceFromMenu.enterNewCar)
                 {
                     Console.WriteLine("the garage is empty!");
                     continue;
@@ -213,7 +213,7 @@ We offer in our garage these services:
         {
             Console.WriteLine(@"
 We need a few more details about your vehicle, please enter by order of the printing:");
-            printListOfString(factory.myVehicleRequirements(m_myGarage));
+            printListOfString(factory.MyVehicleRequirements(m_myGarage));
             List<string> listOfRequirementsForVehicle = new List<string>();
             List<string> listOfRequirementsForClientInfo = new List<string>();
             listOfRequirementsForVehicle = userInputForVehicleRequirements();
@@ -233,7 +233,7 @@ Please give us your vehicle plate number:");
 Choose your vehicle from the option below. please mind Capital Letters:");
             printListOfString(m_myGarage.GetVehicleOptions());
             string vehicleType = Console.ReadLine();
-            factory.createNewVehicle(plateNumber, vehicleModel, vehicleType, m_myGarage);
+            factory.CreateNewVehicle(plateNumber, vehicleModel, vehicleType, m_myGarage);
             Console.WriteLine(@"
 Your vehicle has been sign to our garage!");
         }
@@ -243,10 +243,10 @@ Your vehicle has been sign to our garage!");
             List<string> listOfClientInfoFromUser = new List<string>();
             Console.WriteLine(@"
 In addition we need this details about you:");
-            printListOfString(factory.myClientInfoRequirements(m_myGarage));
+            printListOfString(factory.MyClientInfoRequirements(m_myGarage));
             Console.WriteLine("Please enter the details in the same order printed");
 
-            for(int i = 0; i < factory.myClientInfoRequirements(m_myGarage).Count; i++)
+            for(int i = 0; i < factory.MyClientInfoRequirements(m_myGarage).Count; i++)
             {
                 listOfClientInfoFromUser.Add(Console.ReadLine());
             }
@@ -258,7 +258,7 @@ In addition we need this details about you:");
             List<string> listOfInputsFromUser = new List<string>();
             Console.WriteLine("Please Enter the details in the same order as we ask for them!");
 
-            for(int i = 0; i < factory.myVehicleRequirements(m_myGarage).Count; i++) 
+            for(int i = 0; i < factory.MyVehicleRequirements(m_myGarage).Count; i++) 
             {
                 listOfInputsFromUser.Add(Console.ReadLine());
             }

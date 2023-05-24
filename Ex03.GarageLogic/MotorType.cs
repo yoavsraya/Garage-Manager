@@ -52,6 +52,11 @@ namespace Ex03.GarageLogic
             m_EnergyType = i_EnergyType;
         }
 
+        public float calculateMeterPercent()
+        {
+            return currentEnergy / maxEnergy;
+        }
+
         
 
     }

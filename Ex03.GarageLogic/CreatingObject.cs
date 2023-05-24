@@ -15,9 +15,9 @@ namespace Ex03.GarageLogic
         }
         private byte m_Counter = 0;
 
-        public void createNewVehicle(in string i_plateNumber, in string i_vehicleModel, in string i_vehicleType, in GarageManeger i_garage)
+        public void CreateNewVehicle(in string i_plateNumber, in string i_vehicleModel, in string i_vehicleType, in GarageManeger i_garage)
         {
-            if(i_garage.isVehicleExist(i_plateNumber) == true) 
+            if(i_garage.isVehicleExist(i_plateNumber)) 
             {
                 i_garage.UpdateClientStatus(i_plateNumber, "inProgress");
             }
@@ -46,22 +46,22 @@ namespace Ex03.GarageLogic
             }
         }
 
-        public List<string> myVehicleRequirements(GarageManeger garage)
+        public List<string> MyVehicleRequirements(in GarageManeger i_garage)
         {
-            return garage.getVehicleRequirement(m_newVehicle);
+            return i_garage.getVehicleRequirement(m_newVehicle);
         }
         
-        public List<string> myClientInfoRequirements(GarageManeger garage)
+        public List<string> MyClientInfoRequirements(in GarageManeger i_garage)
         {
-            return garage.getClientRequirement();
+            return i_garage.getClientRequirement();
         }
 
-        public void createMyClientInfoCard(GarageManeger garage, List<string> i_vehicleDetailsList, List<string> i_clientDetailsList) 
+        public void CreateMyClientInfoCard(in GarageManeger i_garage, List<string> i_vehicleDetailsList, List<string> i_clientDetailsList) 
         {
-            garage.detailsToAddClient(m_newVehicle, i_vehicleDetailsList, i_clientDetailsList);
+            i_garage.detailsToAddClient(m_newVehicle, i_vehicleDetailsList, i_clientDetailsList);
         }
 
-        public bool isGarageEmpty()
+        public bool IsGarageEmpty()
         {
             return m_Counter == 0;
         }
