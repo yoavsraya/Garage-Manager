@@ -85,6 +85,7 @@ namespace Ex03.GarageLogic
         public void FillEnergyInVehicle(in float i_EnergyToAdd, in MotorType.eEnergyType i_EnergyType) 
         {
             m_vehicle.ReFillVehicle(i_EnergyToAdd, i_EnergyType);
+           
         }
 
         public List<string> GetInfo() 

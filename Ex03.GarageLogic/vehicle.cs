@@ -53,8 +53,16 @@ namespace Ex03.GarageLogic
             }
             else
             {
-                m_MotorType.ReFill(i_NewCurrentEnergy, i_EnergyType);
-                m_EnergyMeterPercent = m_MotorType.calculateMeterPercent();
+                try
+                {
+                    m_MotorType.ReFill(i_NewCurrentEnergy, i_EnergyType);
+                    m_EnergyMeterPercent = m_MotorType.calculateMeterPercent();
+                }
+                catch (fillEnergyToMaxException e)
+                {
+                    m_EnergyMeterPercent = m_MotorType.calculateMeterPercent();
+                    throw e;
+                }
             }
         }
 
