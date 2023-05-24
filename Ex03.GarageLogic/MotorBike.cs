@@ -69,8 +69,7 @@ namespace Ex03.GarageLogic
             {
                 m_Wheels.UpdateWheelDetails(float.Parse(i_ListOfAnswers[(int)CurrentTierPressure]), i_ListOfAnswers[(int)TierManufacturer]);
                 CreateEngine(i_ListOfAnswers[((int)EngineType)]);
-                updateMaxEnergy();
-                m_MotorType.currentEnergy = float.Parse(i_ListOfAnswers[(int)currentEnergy]);
+                updateEnergyDetails(float.Parse(i_ListOfAnswers[(int)currentEnergy]));
 
             }
             catch(Exception e)
@@ -89,7 +88,7 @@ namespace Ex03.GarageLogic
             return details;
         }
 
-        protected override void updateMaxEnergy()
+        protected override void updateEnergyDetails(in float i_currentEnergy)
         {
             if (m_MotorType == null)
             {
@@ -104,6 +103,9 @@ namespace Ex03.GarageLogic
             {
                 m_MotorType.maxEnergy = 2.6f;
             }
+
+            m_MotorType.currentEnergy = i_currentEnergy;
+            EnergyMeterPercent = m_MotorType.calculateMeterPercent();
 
         }
     }

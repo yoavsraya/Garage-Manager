@@ -27,6 +27,20 @@ namespace Ex03.GarageLogic
             }
         }
 
+        public float EnergyMeterPercent
+        {
+            get
+            {
+                return m_EnergyMeterPercent;
+            }
+
+            set
+            {
+                m_EnergyMeterPercent = value;
+            }
+        }
+
+
         public void ReFillVehicle(in float i_NewCurrentEnergy, in MotorType.eEnergyType i_EnergyType)
         {
             if(m_MotorType == null)
@@ -103,6 +117,6 @@ namespace Ex03.GarageLogic
             return details;
         }
 
-        protected abstract void updateMaxEnergy();
+        protected abstract void updateEnergyDetails(in float i_currentEnergy);
     }
 }
