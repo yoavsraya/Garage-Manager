@@ -186,7 +186,7 @@ We offer in our garage these services:
                 }
                 catch(CarExistException e) 
                 {
-
+                    throw e;
                 }
                 catch (Exception e)
                 {

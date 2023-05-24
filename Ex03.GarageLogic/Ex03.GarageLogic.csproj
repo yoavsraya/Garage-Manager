@@ -36,6 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Car.cs" />
+    <Compile Include="CarExistException.cs" />
     <Compile Include="ClientInfo.cs" />
     <Compile Include="CreatingObject.cs" />
     <Compile Include="ElectricMotor.cs" />
