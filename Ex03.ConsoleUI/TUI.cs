@@ -43,11 +43,11 @@ namespace Ex03.ConsoleUI
                         case eChoiceFromMenu.FillAirToMax:
                             fillAirToMax();
                             break;
-                        case eChoiceFromMenu.FillGasToMax:
-                            fillGasToMax();
+                        case eChoiceFromMenu.FillGas:
+                            fillGas();
                             break;
-                        case eChoiceFromMenu.FillElectricToMax:
-                            fillElectricToMax();
+                        case eChoiceFromMenu.FillElectric:
+                            fillElectric();
                             break;
                         case eChoiceFromMenu.GetFullDetails:
                             getFullDetailsOnVehicle();
@@ -78,8 +78,8 @@ namespace Ex03.ConsoleUI
             GetListByFilter = 2,
             ChangeVehicleCondition = 3,
             FillAirToMax = 4,
-            FillGasToMax = 5,
-            FillElectricToMax = 6,
+            FillGas = 5,
+            FillElectric = 6,
             GetFullDetails = 7,
             Exit = 8,
         }
@@ -91,7 +91,7 @@ namespace Ex03.ConsoleUI
             printListOfString(m_myGarage.getVehicleInfo(plateNumberToGetDetails));
         }
 
-        private void fillElectricToMax()
+        private void fillElectric()
         {
             Console.WriteLine("Please enter plate number:");
             string plateNumberToFillElectric = Console.ReadLine();
@@ -103,7 +103,7 @@ namespace Ex03.ConsoleUI
             Console.WriteLine("Electric fill to max successfully!");
         }
 
-        private void fillGasToMax() 
+        private void fillGas() 
         {
             Console.WriteLine("Please enter plate number:");
             string plateNumberToFillGas = Console.ReadLine();
@@ -152,8 +152,8 @@ We offer in our garage these services:
 2. Get a list of the plates number of the vehicle in the garage by sort.
 3. Change vehicle condition from the garage.
 4. Fill air to maximum to vehicle from the garage.
-5. Fill vehicle gas to max from the garage.
-6. Fill vehicle electric to max from the garage.
+5. Fill vehicle gas from the garage.
+6. Fill vehicle electric from the garage.
 7. Get full details of car from the garage by plate number.
 8. If you're not interested you can leave we're won't be offended
 "));
