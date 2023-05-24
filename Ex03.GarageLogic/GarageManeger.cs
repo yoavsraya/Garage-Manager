@@ -57,7 +57,7 @@ namespace Ex03.GarageLogic
 
             if (Enum.TryParse(i_Condition, out ClientInfo.eClientStatus clientStatus) == false)
             {
-                throw new Exception("status is not valid!");
+                throw new FormatException("status is not valid!");
             }
 
             if(clientStatus == ClientInfo.eClientStatus.All)
@@ -93,7 +93,7 @@ namespace Ex03.GarageLogic
         {
             if(Enum.TryParse(i_NewStatus, out ClientInfo.eClientStatus newClientStatus) == false) 
             {
-                throw new ArgumentException("status is not one of the status options!");
+                throw new FormatException("status is not one of the status options!");
             }
 
             try
@@ -145,7 +145,7 @@ namespace Ex03.GarageLogic
         {
             if (!Enum.TryParse(i_EnergyType, out MotorType.eEnergyType energyType))
             {
-                throw new ArgumentException("energy type is not valid!");
+                throw new FormatException("energy type is not valid!");
             }
             try
             {

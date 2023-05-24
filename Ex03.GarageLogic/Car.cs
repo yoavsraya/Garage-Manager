@@ -65,26 +65,26 @@ namespace Ex03.GarageLogic
 
             if (Enum.TryParse(i_ListOfAnswers[((int)NumOfDoors)], out m_numOfDoors) != k_Valid)
             {
-                throw new ArgumentException("num of doors is not valid");
+                throw new FormatException("num of doors is not valid");
             }
 
             if(Enum.TryParse(i_ListOfAnswers[((int)CarColor)], out m_CarColor) != k_Valid)
             {
-                throw new ArgumentException("the color is not valid");
+                throw new FormatException("the color is not valid");
             }
 
             try
             {
                 if (!float.TryParse(i_ListOfAnswers[(int)CurrentTierPressure], out float currTierPressure))
                 {
-                    throw new InvalidCastException("tier pressure must be a number");
+                    throw new FormatException("tier pressure must be a number");
                 }
                 m_Wheels.UpdateWheelDetails(currTierPressure, i_ListOfAnswers[(int)TierManufacturer]);
                 CreateEngine(i_ListOfAnswers[((int)EngineType)]);
 
                 if (!float.TryParse(i_ListOfAnswers[(int)currentEnergy], out float currEnergy))
                 {
-                    throw new InvalidCastException("energy must be a number");
+                    throw new FormatException("energy must be a number");
                 }
                 updateEnergyDetails(currEnergy);
             }
