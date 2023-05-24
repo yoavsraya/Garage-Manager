@@ -72,7 +72,7 @@ namespace Ex03.GarageLogic
             return statusInString;
         }
 
-        public string getVehiclePlateNumber() 
+        public string GetVehiclePlateNumber() 
         {
             return m_vehicle.LicensePlate;
         }
@@ -87,7 +87,7 @@ namespace Ex03.GarageLogic
             m_vehicle.ReFillVehicle(i_energyToAdd, i_energyType);
         }
 
-        public List<string> getInfo() 
+        public List<string> GetInfo() 
         {
             List<string> vehicleInfo = m_vehicle.VehicleDetails();
             vehicleInfo.Add("Owner Name: " + m_OwnerName);

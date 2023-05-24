@@ -3,7 +3,7 @@ using System;
 
 namespace Ex03.GarageLogic
 {
-    public class GarageManeger
+    public class GarageManager
     {
         private Dictionary<ClientInfo.eClientStatus, List<ClientInfo>> m_clients = new Dictionary<ClientInfo.eClientStatus, List<ClientInfo>>();
         const bool k_Found = true;
@@ -16,7 +16,7 @@ namespace Ex03.GarageLogic
             {
                 foreach (ClientInfo vehicle in status.Value)
                 {
-                    if (vehicle.getVehiclePlateNumber() == i_plateNumber)
+                    if (vehicle.GetVehiclePlateNumber() == i_plateNumber)
                     {
                         found = k_Found;
                     }
@@ -35,7 +35,7 @@ namespace Ex03.GarageLogic
             {
                 foreach(ClientInfo tmpClient in status.Value) 
                 {
-                    if (i_plateNumber.Equals(tmpClient.getVehiclePlateNumber()))
+                    if (i_plateNumber.Equals(tmpClient.GetVehiclePlateNumber()))
                     {
                         found = k_Found;
                         client = tmpClient;
@@ -66,7 +66,7 @@ namespace Ex03.GarageLogic
                 {
                     foreach(ClientInfo client in status.Value) 
                     {
-                        filteredPlates.Add(client.getVehiclePlateNumber());
+                        filteredPlates.Add(client.GetVehiclePlateNumber());
                     }
                 }
             }
@@ -78,7 +78,7 @@ namespace Ex03.GarageLogic
                     {
                         foreach(ClientInfo client in status.Value) 
                         {
-                            filteredPlates.Add(client.getVehiclePlateNumber());
+                            filteredPlates.Add(client.GetVehiclePlateNumber());
                         }
 
                         break;
@@ -141,13 +141,13 @@ namespace Ex03.GarageLogic
             }
         }
 
-        public void FillEnergyInVehicle(in string i_plateNumber, in string i_energyType, in string i_amoutOfEnergyToFill) 
+        public void FillEnergyInVehicle(in string i_plateNumber, in string i_energyType, in string i_amountOfEnergyToFill) 
         {
            MotorType.eEnergyType energyType = (MotorType.eEnergyType)Enum.Parse(typeof(MotorType.eEnergyType), i_energyType);
             try
             {
                 ClientInfo client = FindClientByPlateNumber(i_plateNumber);
-                client.FillEnergyInVehicle(float.Parse(i_amoutOfEnergyToFill), energyType);
+                client.FillEnergyInVehicle(float.Parse(i_amountOfEnergyToFill), energyType);
             }
             catch(Exception e)
             {
@@ -162,7 +162,7 @@ namespace Ex03.GarageLogic
             try
             {
                 ClientInfo client = FindClientByPlateNumber(i_plateNumber);
-                vehicleInfo = client.getInfo();
+                vehicleInfo = client.GetInfo();
             }
             catch(Exception e)
             {
