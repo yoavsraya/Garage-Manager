@@ -15,15 +15,15 @@ namespace Ex03.GarageLogic
         }
         private byte m_Counter = 0;
 
-        public void CreateNewVehicle(in string i_plateNumber, in string i_vehicleModel, in string i_vehicleType, in GarageManager i_garage)
+        public void CreateNewVehicle(in string i_PlateNumber, in string i_VehicleModel, in string i_VehicleType, in GarageManager i_Garage)
         {
-            if(i_garage.isVehicleExist(i_plateNumber)) 
+            if(i_Garage.isVehicleExist(i_PlateNumber)) 
             {
-                i_garage.UpdateClientStatus(i_plateNumber, "inProgress");
+                i_Garage.UpdateClientStatus(i_PlateNumber, "inProgress");
             }
             else 
             {
-                if(Enum.TryParse(i_vehicleType, out eVehiclesType vehiclesType) == false)
+                if(Enum.TryParse(i_VehicleType, out eVehiclesType vehiclesType) == false)
                 {
                     throw new ArgumentException("this is not a possible vehicle");
                 }
@@ -31,34 +31,34 @@ namespace Ex03.GarageLogic
                 switch (vehiclesType) 
                 {
                     case eVehiclesType.Car:
-                        Car newCar = new Car(i_plateNumber, i_vehicleModel);
+                        Car newCar = new Car(i_PlateNumber, i_VehicleModel);
                         m_newVehicle = newCar;
                         break;
                     case eVehiclesType.MotorBike:
-                        MotorBike newMotorBike = new MotorBike(i_plateNumber, i_vehicleModel);
+                        MotorBike newMotorBike = new MotorBike(i_PlateNumber, i_VehicleModel);
                         m_newVehicle = newMotorBike;
                         break;
                     case eVehiclesType.Track:
-                        Track newTrack = new Track(i_plateNumber, i_vehicleModel);
+                        Track newTrack = new Track(i_PlateNumber, i_VehicleModel);
                         m_newVehicle = newTrack;
                         break;
                 }
             }
         }
 
-        public List<string> MyVehicleRequirements(in GarageManager i_garage)
+        public List<string> MyVehicleRequirements(in GarageManager i_Garage)
         {
-            return i_garage.getVehicleRequirement(m_newVehicle);
+            return i_Garage.getVehicleRequirement(m_newVehicle);
         }
         
-        public List<string> MyClientInfoRequirements(in GarageManager i_garage)
+        public List<string> MyClientInfoRequirements(in GarageManager i_Garage)
         {
-            return i_garage.getClientRequirement();
+            return i_Garage.getClientRequirement();
         }
 
-        public void CreateMyClientInfoCard(in GarageManager i_garage, List<string> i_vehicleDetailsList, List<string> i_clientDetailsList) 
+        public void CreateMyClientInfoCard(in GarageManager i_Garage, List<string> i_VehicleDetailsList, List<string> i_ClientDetailsList) 
         {
-            i_garage.detailsToAddClient(m_newVehicle, i_vehicleDetailsList, i_clientDetailsList);
+            i_Garage.detailsToAddClient(m_newVehicle, i_VehicleDetailsList, i_ClientDetailsList);
         }
 
         public bool IsGarageEmpty()
