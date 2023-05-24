@@ -9,14 +9,10 @@ namespace Ex03.GarageLogic
 
         public override void ReFill(in float i_energy, in eEnergyType i_energyType)
         {
+
             if (i_energyType != EnergyType)
             {
                 throw new ArgumentException("this car can get only energy");
-            }
-            else if (i_energy + m_BatteryHoursLeft > m_BatteryMaxHours)
-            {
-                m_BatteryHoursLeft = m_BatteryMaxHours;
-                throw new fillEnergyToMaxException();
             }
             else
             {
@@ -54,7 +50,7 @@ namespace Ex03.GarageLogic
             {
                 if (value > m_BatteryMaxHours)
                 {
-                    throw new ArgumentException("current battery cant be more then the max");
+                    throw new ValueOutOfRangeException("energy value is  out of range");
                 }
                 m_BatteryHoursLeft = value;
             }

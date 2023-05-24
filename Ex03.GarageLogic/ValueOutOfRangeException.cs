@@ -4,15 +4,11 @@ namespace Ex03.GarageLogic
 {
     class ValueOutOfRangeException :Exception
     {
-        public override string Message
-        {
-            get
-            {
-                return "value is out of Range!";
-            }
-        }
+     
+        public ValueOutOfRangeException(in string i_message) : base(i_message){}
 
-        private float m_MaxValue { get; set; }
-        private float m_MinValue { get; set; }
+        public static float m_MaxValue { get; set; }
+        public static float m_MinValue { get; set; }
+
     }
 }

@@ -65,7 +65,7 @@ namespace Ex03.GarageLogic
 
             if (Enum.TryParse(i_ListOfAnswers[((int)NumOfDoors)], out m_numOfDoors) != k_Valid)
             {
-                throw new FormatException("num of doors is not valid");
+                throw new ValueOutOfRangeException("number of doors must be between 2-5");
             }
 
             if(Enum.TryParse(i_ListOfAnswers[((int)CarColor)], out m_CarColor) != k_Valid)

@@ -72,9 +72,13 @@ namespace Ex03.GarageLogic
         internal void UpdateWheelDetails(in float i_TierPressure, in string i_Manufactor)
         {
             m_Manufacturer = i_Manufactor;
-            if (i_TierPressure > m_MaxAirPressure)
+
+            ValueOutOfRangeException.m_MinValue = 0;
+            ValueOutOfRangeException.m_MaxValue = m_MaxAirPressure;
+
+            if (i_TierPressure > ValueOutOfRangeException.m_MaxValue || i_TierPressure < ValueOutOfRangeException.m_MinValue)
             {
-                throw new ArgumentException("tier pressure can't be more then the wheel max pressure!");
+                throw new ValueOutOfRangeException("tier pressure is out of range");
             }
             m_CurrentAirPressure = i_TierPressure;
         }

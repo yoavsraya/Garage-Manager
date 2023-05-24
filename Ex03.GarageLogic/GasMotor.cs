@@ -13,11 +13,6 @@ namespace Ex03.GarageLogic
             {
                 throw new ArgumentException("fuel type is not matching the car fuel type!");
             }
-            else if (i_energy + m_CurrentGasCapacity > m_MaxGasCspscity)
-            {
-                m_CurrentGasCapacity = m_MaxGasCspscity;
-                throw new fillEnergyToMaxException();
-            }
             else
             {
                 m_CurrentGasCapacity += i_energy;
@@ -54,7 +49,7 @@ namespace Ex03.GarageLogic
             {
                 if (value > m_MaxGasCspscity)
                 {
-                    throw new ArgumentException("current fuel cant be more then the max");
+                    throw new ValueOutOfRangeException("fuel value is out of range");
                 }
                 m_CurrentGasCapacity = value;
             }

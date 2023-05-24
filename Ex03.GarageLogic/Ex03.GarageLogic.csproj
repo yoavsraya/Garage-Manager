@@ -40,7 +40,6 @@
     <Compile Include="ClientInfo.cs" />
     <Compile Include="CreatingObject.cs" />
     <Compile Include="ElectricMotor.cs" />
-    <Compile Include="fillEnergyToMaxException.cs" />
     <Compile Include="GarageManeger.cs" />
     <Compile Include="GasMotor.cs" />
     <Compile Include="MotorBike.cs" />
