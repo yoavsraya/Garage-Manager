@@ -75,9 +75,18 @@ namespace Ex03.GarageLogic
 
             try
             {
-                m_Wheels.UpdateWheelDetails(float.Parse(i_ListOfAnswers[((int)CurrentTierPressure)]), i_ListOfAnswers[((int)TierManufacturer)]);
+                if (!float.TryParse(i_ListOfAnswers[(int)CurrentTierPressure], out float currTierPressure))
+                {
+                    throw new InvalidCastException("tier pressure must be a number");
+                }
+                m_Wheels.UpdateWheelDetails(currTierPressure, i_ListOfAnswers[(int)TierManufacturer]);
                 CreateEngine(i_ListOfAnswers[((int)EngineType)]);
-                updateEnergyDetails(float.Parse(i_ListOfAnswers[(int)currentEnergy]));
+
+                if (!float.TryParse(i_ListOfAnswers[(int)currentEnergy], out float currEnergy))
+                {
+                    throw new InvalidCastException("energy must be a number");
+                }
+                updateEnergyDetails(currEnergy);
             }
             catch (Exception e)
             {

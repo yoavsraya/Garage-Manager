@@ -57,7 +57,7 @@ namespace Ex03.GarageLogic
 
             if (Enum.TryParse(i_Condition, out ClientInfo.eClientStatus clientStatus) == false)
             {
-                throw new Exception();
+                throw new Exception("status is not valid!");
             }
 
             if(clientStatus == ClientInfo.eClientStatus.All)
@@ -143,11 +143,21 @@ namespace Ex03.GarageLogic
 
         public void FillEnergyInVehicle(in string i_PlateNumber, in string i_EnergyType, in string i_AmountOfEnergyToFill) 
         {
-           MotorType.eEnergyType energyType = (MotorType.eEnergyType)Enum.Parse(typeof(MotorType.eEnergyType), i_EnergyType);
+            if (!Enum.TryParse(i_EnergyType, out MotorType.eEnergyType energyType))
+            {
+                throw new ArgumentException("energy type is not valid!");
+            }
             try
             {
                 ClientInfo client = FindClientByPlateNumber(i_PlateNumber);
-                client.FillEnergyInVehicle(float.Parse(i_AmountOfEnergyToFill), energyType);
+                if (float.TryParse(i_AmountOfEnergyToFill, out float floatFuel))
+                {
+                    client.FillEnergyInVehicle(floatFuel, energyType);
+                }
+                else
+                {
+                    throw new ArgumentException("amount of energy must be a number");
+                }
             }
             catch(Exception e)
             {
